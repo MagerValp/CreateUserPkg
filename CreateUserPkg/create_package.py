@@ -38,11 +38,13 @@ if [ "$3" == "/" ]; then
     # kill local directory service so it will see our local
     # file changes -- it will automatically restart
     os_major_ver=`/usr/bin/uname -r | /usr/bin/cut -d. -f1`
-    if [ $os_major_ver -lt 10 ]; then
+    if [ $os_major_ver -le 10 ]; then
         # Snow Leopard or Leopard
+        echo "Restarting DirectoryService"
         /usr/bin/killall DirectoryService
     else
         # Lion or later
+        echo "Restarting opendirectoryd"
         /usr/bin/killall opendirectoryd
     fi
 fi
