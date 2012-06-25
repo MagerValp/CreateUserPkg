@@ -11,6 +11,14 @@ Credits
 * User deployment method by Greg Neagle
 * Original `CreateUser.pkg` by Pete Akins
 
+
+Version History
+---------------
+
+* 1.0.1 - Fixed postinstall script for 10.6 (thanks to Allister Banks)
+* 1.0 - Initial release
+
+
 License
 -------
 
