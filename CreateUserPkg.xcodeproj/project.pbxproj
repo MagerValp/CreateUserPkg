@@ -1,0 +1,353 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05050358159094E200522573 /* CUPUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05050357159094E200522573 /* CUPUIDFormatter.m */; };
+		0505035B1590A33300522573 /* CUPUserNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505035A1590A33300522573 /* CUPUserNameFormatter.m */; };
+		0505035E1590B08A00522573 /* CUPUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505035D1590B08A00522573 /* CUPUUIDFormatter.m */; };
+		050503641590BD9700522573 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050503631590BD9700522573 /* Security.framework */; };
+		0513CF9A159090720071D6B9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0513CF99159090720071D6B9 /* Cocoa.framework */; };
+		0513CFA4159090720071D6B9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0513CFA2159090720071D6B9 /* InfoPlist.strings */; };
+		0513CFA6159090720071D6B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513CFA5159090720071D6B9 /* main.m */; };
+		0513CFAA159090720071D6B9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0513CFA8159090720071D6B9 /* Credits.rtf */; };
+		0513CFAD159090720071D6B9 /* CUPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513CFAC159090720071D6B9 /* CUPAppDelegate.m */; };
+		0513CFB0159090720071D6B9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0513CFAE159090720071D6B9 /* MainMenu.xib */; };
+		052E298A15921E8D00497D01 /* create_package.py in Resources */ = {isa = PBXBuildFile; fileRef = 666560651591C49A00A0597E /* create_package.py */; };
+		668753C41592651B00A6D7B7 /* CreateUserPkg.icns in Resources */ = {isa = PBXBuildFile; fileRef = 668753C31592651B00A6D7B7 /* CreateUserPkg.icns */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		05050356159094E200522573 /* CUPUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUIDFormatter.h; sourceTree = "<group>"; };
+		05050357159094E200522573 /* CUPUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUIDFormatter.m; sourceTree = "<group>"; };
+		050503591590A33300522573 /* CUPUserNameFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUserNameFormatter.h; sourceTree = "<group>"; };
+		0505035A1590A33300522573 /* CUPUserNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUserNameFormatter.m; sourceTree = "<group>"; };
+		0505035C1590B08A00522573 /* CUPUUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUUIDFormatter.h; sourceTree = "<group>"; };
+		0505035D1590B08A00522573 /* CUPUUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUUIDFormatter.m; sourceTree = "<group>"; };
+		050503631590BD9700522573 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0513CF95159090720071D6B9 /* CreateUserPkg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreateUserPkg.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0513CF99159090720071D6B9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		0513CF9C159090720071D6B9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		0513CF9D159090720071D6B9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0513CF9E159090720071D6B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0513CFA1159090720071D6B9 /* CreateUserPkg-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CreateUserPkg-Info.plist"; sourceTree = "<group>"; };
+		0513CFA3159090720071D6B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0513CFA5159090720071D6B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0513CFA7159090720071D6B9 /* CreateUserPkg-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CreateUserPkg-Prefix.pch"; sourceTree = "<group>"; };
+		0513CFA9159090720071D6B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		0513CFAB159090720071D6B9 /* CUPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUPAppDelegate.h; sourceTree = "<group>"; };
+		0513CFAC159090720071D6B9 /* CUPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CUPAppDelegate.m; sourceTree = "<group>"; };
+		0513CFAF159090720071D6B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		05759DA41593423D0079D4EF /* CreateUserPkg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CreateUserPkg.entitlements; sourceTree = "<group>"; };
+		666560651591C49A00A0597E /* create_package.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = create_package.py; sourceTree = "<group>"; };
+		668753C31592651B00A6D7B7 /* CreateUserPkg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CreateUserPkg.icns; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0513CF92159090720071D6B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				050503641590BD9700522573 /* Security.framework in Frameworks */,
+				0513CF9A159090720071D6B9 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0513CF8A159090720071D6B9 = {
+			isa = PBXGroup;
+			children = (
+				668753C31592651B00A6D7B7 /* CreateUserPkg.icns */,
+				050503631590BD9700522573 /* Security.framework */,
+				0513CF9F159090720071D6B9 /* CreateUserPkg */,
+				0513CF98159090720071D6B9 /* Frameworks */,
+				0513CF96159090720071D6B9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0513CF96159090720071D6B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0513CF95159090720071D6B9 /* CreateUserPkg.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0513CF98159090720071D6B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0513CF99159090720071D6B9 /* Cocoa.framework */,
+				0513CF9B159090720071D6B9 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0513CF9B159090720071D6B9 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0513CF9C159090720071D6B9 /* AppKit.framework */,
+				0513CF9D159090720071D6B9 /* CoreData.framework */,
+				0513CF9E159090720071D6B9 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		0513CF9F159090720071D6B9 /* CreateUserPkg */ = {
+			isa = PBXGroup;
+			children = (
+				05759DA41593423D0079D4EF /* CreateUserPkg.entitlements */,
+				0513CFAB159090720071D6B9 /* CUPAppDelegate.h */,
+				0513CFAC159090720071D6B9 /* CUPAppDelegate.m */,
+				0513CFAE159090720071D6B9 /* MainMenu.xib */,
+				0513CFA0159090720071D6B9 /* Supporting Files */,
+				05050356159094E200522573 /* CUPUIDFormatter.h */,
+				05050357159094E200522573 /* CUPUIDFormatter.m */,
+				050503591590A33300522573 /* CUPUserNameFormatter.h */,
+				0505035A1590A33300522573 /* CUPUserNameFormatter.m */,
+				0505035C1590B08A00522573 /* CUPUUIDFormatter.h */,
+				0505035D1590B08A00522573 /* CUPUUIDFormatter.m */,
+			);
+			path = CreateUserPkg;
+			sourceTree = "<group>";
+		};
+		0513CFA0159090720071D6B9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				666560651591C49A00A0597E /* create_package.py */,
+				0513CFA1159090720071D6B9 /* CreateUserPkg-Info.plist */,
+				0513CFA2159090720071D6B9 /* InfoPlist.strings */,
+				0513CFA5159090720071D6B9 /* main.m */,
+				0513CFA7159090720071D6B9 /* CreateUserPkg-Prefix.pch */,
+				0513CFA8159090720071D6B9 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0513CF94159090720071D6B9 /* CreateUserPkg */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0513CFB3159090720071D6B9 /* Build configuration list for PBXNativeTarget "CreateUserPkg" */;
+			buildPhases = (
+				0513CF91159090720071D6B9 /* Sources */,
+				0513CF92159090720071D6B9 /* Frameworks */,
+				0513CF93159090720071D6B9 /* Resources */,
+				052E298B15921E9800497D01 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CreateUserPkg;
+			productName = CreateUserPkg;
+			productReference = 0513CF95159090720071D6B9 /* CreateUserPkg.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0513CF8C159090720071D6B9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = CUP;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Per Olofsson";
+			};
+			buildConfigurationList = 0513CF8F159090720071D6B9 /* Build configuration list for PBXProject "CreateUserPkg" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0513CF8A159090720071D6B9;
+			productRefGroup = 0513CF96159090720071D6B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0513CF94159090720071D6B9 /* CreateUserPkg */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0513CF93159090720071D6B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				052E298A15921E8D00497D01 /* create_package.py in Resources */,
+				0513CFA4159090720071D6B9 /* InfoPlist.strings in Resources */,
+				0513CFAA159090720071D6B9 /* Credits.rtf in Resources */,
+				0513CFB0159090720071D6B9 /* MainMenu.xib in Resources */,
+				668753C41592651B00A6D7B7 /* CreateUserPkg.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		052E298B15921E9800497D01 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "chmod +x \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/create_package.py\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0513CF91159090720071D6B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0513CFA6159090720071D6B9 /* main.m in Sources */,
+				0513CFAD159090720071D6B9 /* CUPAppDelegate.m in Sources */,
+				05050358159094E200522573 /* CUPUIDFormatter.m in Sources */,
+				0505035B1590A33300522573 /* CUPUserNameFormatter.m in Sources */,
+				0505035E1590B08A00522573 /* CUPUUIDFormatter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0513CFA2159090720071D6B9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0513CFA3159090720071D6B9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0513CFA8159090720071D6B9 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0513CFA9159090720071D6B9 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		0513CFAE159090720071D6B9 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0513CFAF159090720071D6B9 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0513CFB1159090720071D6B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		0513CFB2159090720071D6B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		0513CFB4159090720071D6B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
+				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0513CFB5159090720071D6B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
+				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0513CF8F159090720071D6B9 /* Build configuration list for PBXProject "CreateUserPkg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0513CFB1159090720071D6B9 /* Debug */,
+				0513CFB2159090720071D6B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0513CFB3159090720071D6B9 /* Build configuration list for PBXNativeTarget "CreateUserPkg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0513CFB4159090720071D6B9 /* Debug */,
+				0513CFB5159090720071D6B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0513CF8C159090720071D6B9 /* Project object */;
+}
