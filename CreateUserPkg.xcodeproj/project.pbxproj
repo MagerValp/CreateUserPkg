@@ -10,7 +10,6 @@
 		05050358159094E200522573 /* CUPUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05050357159094E200522573 /* CUPUIDFormatter.m */; };
 		0505035B1590A33300522573 /* CUPUserNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505035A1590A33300522573 /* CUPUserNameFormatter.m */; };
 		0505035E1590B08A00522573 /* CUPUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505035D1590B08A00522573 /* CUPUUIDFormatter.m */; };
-		050503641590BD9700522573 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050503631590BD9700522573 /* Security.framework */; };
 		0513CF9A159090720071D6B9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0513CF99159090720071D6B9 /* Cocoa.framework */; };
 		0513CFA4159090720071D6B9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0513CFA2159090720071D6B9 /* InfoPlist.strings */; };
 		0513CFA6159090720071D6B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513CFA5159090720071D6B9 /* main.m */; };
@@ -52,7 +51,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				050503641590BD9700522573 /* Security.framework in Frameworks */,
 				0513CF9A159090720071D6B9 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
