@@ -200,7 +200,7 @@ def main(argv):
     pwd_ntlm = "0" * 64
     pwd_sha1 = "0" * 40
     pwd_cram_md5 = "0" * 64
-    pwd_salted_sha1 = salted_sha1(fields[u"password"]).encode("hex")
+    pwd_salted_sha1 = salted_sha1(fields[u"password"]).encode("hex").upper()
     pwd_recoverable = "0" * 1024
     
     shadow_hash = pwd_ntlm + pwd_sha1 + pwd_cram_md5 + pwd_salted_sha1 + pwd_recoverable
