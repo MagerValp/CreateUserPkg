@@ -15,9 +15,13 @@ Credits
 Version History
 ---------------
 
-* 1.0.2 - Fixed ownership of items in package Payload.
-* 1.0.1 - Fixed postinstall script for 10.6 (thanks to Allister Banks)
-* 1.0 - Initial release
+* 1.0.2
+    * Fixed ownership of items in package Payload.
+    * Changed salted sha1 shadow hash to upper case which fixes authentication on 10.5 and 10.6 (thanks to Allister Banks).
+* 1.0.1
+    * Fixed postinstall script for 10.6 (thanks to Allister Banks).
+* 1.0
+    * Initial release.
 
 
 License
