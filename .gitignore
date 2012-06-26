@@ -6,3 +6,6 @@
 *.xcuserstate
 project.xcworkspace/
 xcuserdata/
+Distributions/*.dmg
+Distributions/CreateUserPkg-*
+
