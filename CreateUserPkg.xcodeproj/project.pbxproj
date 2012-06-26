@@ -138,6 +138,7 @@
 				0513CF92159090720071D6B9 /* Frameworks */,
 				0513CF93159090720071D6B9 /* Resources */,
 				052E298B15921E9800497D01 /* ShellScript */,
+				05C8607E1599ADAA00D88B6A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -193,6 +194,19 @@
 /* Begin PBXShellScriptBuildPhase section */
 		052E298B15921E9800497D01 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "chmod +x \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/create_package.py\"\n";
+		};
+		05C8607E1599ADAA00D88B6A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -202,7 +216,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "chmod +x \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/create_package.py\"\n";
+			shellScript = "#!/bin/bash\n#\n# Sets the version string to a monotonically increased string, based on\n# the number of git commits.\n\nset -o errexit\nset -o nounset\n\nVERSION=$(git --git-dir=\"$PROJECT_DIR/.git\" --work-tree=\"$PROJECT_DIR\" rev-list master | wc -l)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
