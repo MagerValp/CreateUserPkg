@@ -24,6 +24,11 @@ Version History
     * Initial release.
 
 
+Home Page
+---------
+
+CreateUserPkg is hosted on [GitHub](https://github.com/MagerValp/CreateUserPkg)
+
 License
 -------
 
