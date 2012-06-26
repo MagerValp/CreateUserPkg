@@ -16,6 +16,7 @@ import tempfile
 import subprocess
 import shutil
 import stat
+import gzip
 
 
 REQUIRED_KEYS = set((
@@ -58,6 +59,61 @@ PACKAGE_INFO = """
     </scripts>
 </pkg-info>"""
 
+
+ODC_HDR_SIZES = (6, 6, 6, 6, 6, 6, 6, 6, 11, 6, 11)
+
+def fix_cpio_owners(f, new_uid=lambda x: 0, new_gid=lambda x: 0):
+    """
+    Change ownership of items in a cpio archive. new_uid and new_gid are
+    functions that take an archive path as the argument, and return the
+    new uid and gid. By default they are set to 0 (root:wheel). Returns
+    a list of strings suitable for writelines().
+    """
+    output = list()
+    while True:
+        # Read and decode ODC header
+        header = f.read(sum(ODC_HDR_SIZES))
+        values = list()
+        offset = 0
+        for size in ODC_HDR_SIZES:
+            values.append(int(header[offset:offset+size], 8))
+            offset += size
+        (magic, 
+         dev,
+         ino,
+         mode,
+         uid,
+         gid,
+         nlink,
+         rdev,
+         mtime,
+         namesize,
+         filesize) = values
+        # Read name and data
+        name = f.read(namesize)
+        data = f.read(filesize)
+        # Generate a new record, replacing uid and gid
+        output.append("%06o%06o%06o%06o%06o%06o%06o%06o%011o%06o%011o" % (
+                      magic,
+                      dev,
+                      ino,
+                      mode,
+                      new_uid(name[:-1]),
+                      new_gid(name[:-1]),
+                      nlink,
+                      rdev,
+                      mtime,
+                      namesize,
+                      filesize))
+        output.append(name)
+        output.append(data)
+        # TRAILER!!! indicates the end of the archive
+        if name == "TRAILER!!!\x00":
+            break
+    # Append padding
+    output.append(f.read())
+    return output
+    
 
 def get_bom_info(path):
     st = os.lstat(path)
@@ -204,9 +260,15 @@ def main(argv):
             return 2
         # Create Payload.
         print "Create Payload."
-        payload_path = os.path.join(flat_pkg_path, "Payload")
-        if shell("/usr/bin/ditto", "-cz", pkg_root_path, payload_path) != 0:
+        tmp_payload_path = os.path.join(tmp_path, "Payload")
+        if shell("/usr/bin/ditto", "-cz", pkg_root_path, tmp_payload_path) != 0:
             return 2
+        payload_path = os.path.join(flat_pkg_path, "Payload")
+        user_payload_f = gzip.open(tmp_payload_path)
+        root_payload_f = gzip.open(payload_path, "wb")
+        root_payload_f.writelines(fix_cpio_owners(user_payload_f))
+        root_payload_f.close()
+        user_payload_f.close()
         # Create PackageInfo
         print "Create PackageInfo"
         package_info_path = os.path.join(flat_pkg_path, "PackageInfo")
