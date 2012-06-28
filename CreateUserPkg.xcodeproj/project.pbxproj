@@ -194,16 +194,17 @@
 /* Begin PBXShellScriptBuildPhase section */
 		052E298B15921E9800497D01 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "chmod +x \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/create_package.py\"\n";
+			showEnvVarsInLog = 0;
 		};
 		05C8607E1599ADAA00D88B6A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -217,6 +218,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\n#\n# Sets the version string to a monotonically increased string, based on\n# the number of git commits.\n\nset -o errexit\nset -o nounset\n\nVERSION=$(git --git-dir=\"$PROJECT_DIR/.git\" --work-tree=\"$PROJECT_DIR\" rev-list master | wc -l)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
