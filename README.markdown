@@ -15,6 +15,8 @@ Credits
 Version History
 ---------------
 
+* 1.0.3
+    * Fixed Package ID and Version being set incorrectly.
 * 1.0.2
     * Fixed ownership of items in package Payload.
     * Changed salted sha1 shadow hash to upper case which fixes authentication on 10.5 and 10.6 (thanks to Allister Banks).

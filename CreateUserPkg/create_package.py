@@ -27,6 +27,8 @@ REQUIRED_KEYS = set((
     u"groupID",
     u"homeDirectory",
     u"uuid",
+    u"packageID",
+    u"version",
     u"pkgPath",
 ))
 
@@ -189,9 +191,9 @@ def main(argv):
     
     # Get name, version, and package ID.
     utf8_username = fields[u"accountName"].encode("utf-8")
-    pkg_version = "1.0"
+    pkg_version = fields[u"version"]
     pkg_name = "create_%s-%s" % (utf8_username, pkg_version)
-    pkg_id = "se.gu.it.create_%s.pkg" % utf8_username
+    pkg_id = fields[u"packageID"]
     pkg_path = fields[u"pkgPath"].encode("utf-8")
     
     # The shadow hash file contains the password hashed in several different
