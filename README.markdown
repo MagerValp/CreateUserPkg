@@ -15,6 +15,10 @@ Credits
 Version History
 ---------------
 
+* 1.1
+    * create_user.pkg files can now be opened for editing.
+    * User picture can be set by dropping in image.
+    * App is now sandboxed in preparation for App Store submission.
 * 1.0.3
     * Fixed Package ID and Version being set incorrectly.
 * 1.0.2
