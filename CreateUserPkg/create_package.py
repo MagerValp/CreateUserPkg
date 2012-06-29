@@ -22,14 +22,13 @@ import gzip
 REQUIRED_KEYS = set((
     u"fullName",
     u"accountName",
-    u"password",
+    u"shadowHash",
     u"userID",
     u"groupID",
     u"homeDirectory",
     u"uuid",
     u"packageID",
     u"version",
-    u"pkgPath",
 ))
 
 POSTINSTALL = """#!/bin/sh
@@ -151,76 +150,46 @@ def shell(*args):
     return subprocess.call(args)
     
 
-def salted_sha1(password):
-    seed_bytes = os.urandom(4)
-    salted_pwd = hashlib.sha1(seed_bytes + password.encode("utf-8")).digest()
-    return seed_bytes + salted_pwd
-    
-
 def main(argv):
     
-    # Decode arguments as --key=value to a dictionary.
-    fields = dict()
-    for arg in [a.decode("utf-8") for a in argv[1:]]:
-        if not arg.startswith(u"--"):
-            print >>sys.stderr, "Invalid argument: %s" % repr(arg)
-            return 1
-        (key, equal, value) = arg[2:].partition(u"=")
-        if not equal:
-            print >>sys.stderr, "Invalid argument: %s" % repr(arg)
-            return 1
-        fields[key] = value
+    input_data = plistlib.readPlist(sys.stdin)
     
     # Ensure all required keys are given on the command line.
     for key in REQUIRED_KEYS:
-        if key not in fields:
+        if key not in input_data:
             print >>sys.stderr, "Missing key: %s" % repr(key)
             return 1
     
     # Create a dictionary with user attributes.
     user_plist = dict()
     user_plist[u"authentication_authority"] = [u";ShadowHash;"]
-    user_plist[u"generateduid"] = [fields[u"uuid"]]
-    user_plist[u"gid"] = [fields[u"groupID"]]
-    user_plist[u"home"] = [fields[u"homeDirectory"]]
-    user_plist[u"name"] = [fields[u"accountName"]]
+    user_plist[u"generateduid"] = [input_data[u"uuid"]]
+    user_plist[u"gid"] = [input_data[u"groupID"]]
+    user_plist[u"home"] = [input_data[u"homeDirectory"]]
+    user_plist[u"name"] = [input_data[u"accountName"]]
     user_plist[u"passwd"] = [u"********"]
-    user_plist[u"realname"] = [fields[u"fullName"]]
+    user_plist[u"realname"] = [input_data[u"fullName"]]
     user_plist[u"shell"] = [u"/bin/bash"]
-    user_plist[u"uid"] = [fields[u"userID"]]
+    user_plist[u"uid"] = [input_data[u"userID"]]
     
-    # Get name, version, and package ID.
-    utf8_username = fields[u"accountName"].encode("utf-8")
-    pkg_version = fields[u"version"]
+    # Get name, version, package ID, and shadow hash.
+    utf8_username = input_data[u"accountName"].encode("utf-8")
+    pkg_version = input_data[u"version"]
     pkg_name = "create_%s-%s" % (utf8_username, pkg_version)
-    pkg_id = fields[u"packageID"]
-    pkg_path = fields[u"pkgPath"].encode("utf-8")
-    
-    # The shadow hash file contains the password hashed in several different
-    # formats. We're only using salted sha1 local accounts and the others are
-    # zeroed out.
-    pwd_ntlm = "0" * 64
-    pwd_sha1 = "0" * 40
-    pwd_cram_md5 = "0" * 64
-    pwd_salted_sha1 = salted_sha1(fields[u"password"]).encode("hex").upper()
-    pwd_recoverable = "0" * 1024
-    
-    shadow_hash = pwd_ntlm + pwd_sha1 + pwd_cram_md5 + pwd_salted_sha1 + pwd_recoverable
+    pkg_id = input_data[u"packageID"]
+    shadow_hash = input_data[u"shadowHash"]
     
     # Create a package with the plist for our user and a shadow hash file.
     tmp_path = tempfile.mkdtemp()
     try:
         # Create a root for the package.
-        print "Create a root for the package."
         pkg_root_path = os.path.join(tmp_path, "create_user")
         os.mkdir(pkg_root_path)
         # Create package structure inside root.
-        print "Create package structure inside root."
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/dslocal/nodes"), 0755)
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/dslocal/nodes/Default/users"), 0700)
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/shadow/hash"), 0700)
         # Save user plist.
-        print "Save user plist."
         user_plist_name = "%s.plist" % utf8_username
         user_plist_path = os.path.join(pkg_root_path,
                                        "private/var/db/dslocal/nodes/Default/users",
@@ -228,8 +197,7 @@ def main(argv):
         plistlib.writePlist(user_plist, user_plist_path)
         os.chmod(user_plist_path, 0600)
         # Save shadow hash.
-        print "Save shadow hash."
-        shadow_hash_name = fields[u"uuid"]
+        shadow_hash_name = input_data[u"uuid"]
         shadow_hash_path = os.path.join(pkg_root_path,
                                         "private/var/db/shadow/hash",
                                         shadow_hash_name)
@@ -239,19 +207,16 @@ def main(argv):
         os.chmod(shadow_hash_path, 0600)
         
         # Create a flat package structure.
-        print "Create a flat package structure."
         flat_pkg_path = os.path.join(tmp_path, pkg_name + "_pkg")
         scripts_path = os.path.join(flat_pkg_path, "Scripts")
         os.makedirs(scripts_path, 0755)
         # Create postinstall script.
-        print "Create postinstall script."
         postinstall_path = os.path.join(scripts_path, "postinstall")
         f = open(postinstall_path, "w")
         f.write(POSTINSTALL)
         f.close()
         os.chmod(postinstall_path, 0755)
         # Create Bom.
-        print "Create Bom."
         tmp_bom_path = os.path.join(tmp_path, "Bom.txt")
         f = open(tmp_bom_path, "w")
         f.write("\n".join(generate_bom_lines(pkg_root_path)))
@@ -261,7 +226,6 @@ def main(argv):
         if shell("/usr/bin/mkbom", "-i", tmp_bom_path, bom_path) != 0:
             return 2
         # Create Payload.
-        print "Create Payload."
         tmp_payload_path = os.path.join(tmp_path, "Payload")
         if shell("/usr/bin/ditto", "-cz", pkg_root_path, tmp_payload_path) != 0:
             return 2
@@ -272,7 +236,6 @@ def main(argv):
         root_payload_f.close()
         user_payload_f.close()
         # Create PackageInfo
-        print "Create PackageInfo"
         package_info_path = os.path.join(flat_pkg_path, "PackageInfo")
         package_info = PACKAGE_INFO
         package_info = package_info.replace("_BUNDLE_ID_", pkg_id)
@@ -282,12 +245,18 @@ def main(argv):
         f = open(package_info_path, "w")
         f.write(package_info)
         f.close()
-        
         # Flatten package with pkgutil.
-        print "Flatten package with pkgutil."
+        pkg_path = os.path.join(tmp_path, pkg_name + ".pkg")
         if shell("/usr/sbin/pkgutil", "--flatten", flat_pkg_path, pkg_path) != 0:
             return 2
-    
+        # Write the flattened pkg to stdout as a plist.
+        f = open(pkg_path)
+        output_data = {
+            u"data": plistlib.Data(f.read())
+        }
+        f.close()
+        plistlib.writePlist(output_data, sys.stdout)
+
     except (OSError, IOError), e:
         print >>sys.stderr, "Package creation failed: %s" % e
         return 2
@@ -298,7 +267,5 @@ def main(argv):
     
 
 if __name__ == '__main__':
-    # Redirect stderr to stdout
-    sys.stderr = sys.stdout
     sys.exit(main(sys.argv))
     

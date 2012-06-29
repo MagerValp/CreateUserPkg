@@ -7,122 +7,136 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05050358159094E200522573 /* CUPUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05050357159094E200522573 /* CUPUIDFormatter.m */; };
-		0505035B1590A33300522573 /* CUPUserNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505035A1590A33300522573 /* CUPUserNameFormatter.m */; };
-		0505035E1590B08A00522573 /* CUPUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0505035D1590B08A00522573 /* CUPUUIDFormatter.m */; };
-		0513CF9A159090720071D6B9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0513CF99159090720071D6B9 /* Cocoa.framework */; };
-		0513CFA4159090720071D6B9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0513CFA2159090720071D6B9 /* InfoPlist.strings */; };
-		0513CFA6159090720071D6B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513CFA5159090720071D6B9 /* main.m */; };
-		0513CFAA159090720071D6B9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0513CFA8159090720071D6B9 /* Credits.rtf */; };
-		0513CFAD159090720071D6B9 /* CUPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513CFAC159090720071D6B9 /* CUPAppDelegate.m */; };
-		0513CFB0159090720071D6B9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0513CFAE159090720071D6B9 /* MainMenu.xib */; };
-		052E298A15921E8D00497D01 /* create_package.py in Resources */ = {isa = PBXBuildFile; fileRef = 666560651591C49A00A0597E /* create_package.py */; };
-		668753C41592651B00A6D7B7 /* CreateUserPkg.icns in Resources */ = {isa = PBXBuildFile; fileRef = 668753C31592651B00A6D7B7 /* CreateUserPkg.icns */; };
+		05524F8D159B314900741F47 /* create_package.py in Resources */ = {isa = PBXBuildFile; fileRef = 05524F8C159B314900741F47 /* create_package.py */; };
+		05524F94159B33AB00741F47 /* read_package.py in Resources */ = {isa = PBXBuildFile; fileRef = 05524F8F159B32D600741F47 /* read_package.py */; };
+		0596D17D159AF27800B898B4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0596D17C159AF27800B898B4 /* Cocoa.framework */; };
+		0596D187159AF27800B898B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0596D185159AF27800B898B4 /* InfoPlist.strings */; };
+		0596D189159AF27800B898B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0596D188159AF27800B898B4 /* main.m */; };
+		0596D18D159AF27800B898B4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0596D18B159AF27800B898B4 /* Credits.rtf */; };
+		0596D190159AF27800B898B4 /* CUPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0596D18F159AF27800B898B4 /* CUPDocument.m */; };
+		0596D193159AF27800B898B4 /* CUPDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0596D191159AF27800B898B4 /* CUPDocument.xib */; };
+		0596D196159AF27800B898B4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0596D194159AF27800B898B4 /* MainMenu.xib */; };
+		6605E68A159B86480048362A /* CUPBestHostFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E689159B86480048362A /* CUPBestHostFinder.m */; };
+		6605E68E159B90070048362A /* CUPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E68D159B90070048362A /* CUPAppDelegate.m */; };
+		6605E695159B964D0048362A /* CUPUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E690159B964D0048362A /* CUPUIDFormatter.m */; };
+		6605E696159B964D0048362A /* CUPUserNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E692159B964D0048362A /* CUPUserNameFormatter.m */; };
+		6605E697159B964D0048362A /* CUPUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E694159B964D0048362A /* CUPUUIDFormatter.m */; };
+		66B221D8159C4C30003FDF4E /* CreateUserPkg.icns in Resources */ = {isa = PBXBuildFile; fileRef = 66B221D7159C4C30003FDF4E /* CreateUserPkg.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		05050356159094E200522573 /* CUPUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUIDFormatter.h; sourceTree = "<group>"; };
-		05050357159094E200522573 /* CUPUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUIDFormatter.m; sourceTree = "<group>"; };
-		050503591590A33300522573 /* CUPUserNameFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUserNameFormatter.h; sourceTree = "<group>"; };
-		0505035A1590A33300522573 /* CUPUserNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUserNameFormatter.m; sourceTree = "<group>"; };
-		0505035C1590B08A00522573 /* CUPUUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUUIDFormatter.h; sourceTree = "<group>"; };
-		0505035D1590B08A00522573 /* CUPUUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUUIDFormatter.m; sourceTree = "<group>"; };
-		050503631590BD9700522573 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		0513CF95159090720071D6B9 /* CreateUserPkg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreateUserPkg.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0513CF99159090720071D6B9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		0513CF9C159090720071D6B9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		0513CF9D159090720071D6B9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		0513CF9E159090720071D6B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		0513CFA1159090720071D6B9 /* CreateUserPkg-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CreateUserPkg-Info.plist"; sourceTree = "<group>"; };
-		0513CFA3159090720071D6B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0513CFA5159090720071D6B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0513CFA7159090720071D6B9 /* CreateUserPkg-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CreateUserPkg-Prefix.pch"; sourceTree = "<group>"; };
-		0513CFA9159090720071D6B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		0513CFAB159090720071D6B9 /* CUPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUPAppDelegate.h; sourceTree = "<group>"; };
-		0513CFAC159090720071D6B9 /* CUPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CUPAppDelegate.m; sourceTree = "<group>"; };
-		0513CFAF159090720071D6B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		05759DA41593423D0079D4EF /* CreateUserPkg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CreateUserPkg.entitlements; sourceTree = "<group>"; };
-		666560651591C49A00A0597E /* create_package.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = create_package.py; sourceTree = "<group>"; };
-		668753C31592651B00A6D7B7 /* CreateUserPkg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CreateUserPkg.icns; sourceTree = "<group>"; };
+		05524F8C159B314900741F47 /* create_package.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = create_package.py; sourceTree = "<group>"; };
+		05524F8F159B32D600741F47 /* read_package.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = read_package.py; sourceTree = "<group>"; };
+		0596D178159AF27800B898B4 /* CreateUserPkg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreateUserPkg.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0596D17C159AF27800B898B4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		0596D17F159AF27800B898B4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		0596D180159AF27800B898B4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0596D181159AF27800B898B4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0596D184159AF27800B898B4 /* CreateUserPkg-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CreateUserPkg-Info.plist"; sourceTree = "<group>"; };
+		0596D186159AF27800B898B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0596D188159AF27800B898B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0596D18A159AF27800B898B4 /* CreateUserPkg-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CreateUserPkg-Prefix.pch"; sourceTree = "<group>"; };
+		0596D18C159AF27800B898B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		0596D18E159AF27800B898B4 /* CUPDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUPDocument.h; sourceTree = "<group>"; };
+		0596D18F159AF27800B898B4 /* CUPDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CUPDocument.m; sourceTree = "<group>"; };
+		0596D192159AF27800B898B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CUPDocument.xib; sourceTree = "<group>"; };
+		0596D195159AF27800B898B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		0596D19C159AF2A200B898B4 /* CreateUserPkg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CreateUserPkg.entitlements; sourceTree = "<group>"; };
+		6605E688159B86480048362A /* CUPBestHostFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPBestHostFinder.h; sourceTree = "<group>"; };
+		6605E689159B86480048362A /* CUPBestHostFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPBestHostFinder.m; sourceTree = "<group>"; };
+		6605E68C159B90070048362A /* CUPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPAppDelegate.h; sourceTree = "<group>"; };
+		6605E68D159B90070048362A /* CUPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPAppDelegate.m; sourceTree = "<group>"; };
+		6605E68F159B964D0048362A /* CUPUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUIDFormatter.h; sourceTree = "<group>"; };
+		6605E690159B964D0048362A /* CUPUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUIDFormatter.m; sourceTree = "<group>"; };
+		6605E691159B964D0048362A /* CUPUserNameFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUserNameFormatter.h; sourceTree = "<group>"; };
+		6605E692159B964D0048362A /* CUPUserNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUserNameFormatter.m; sourceTree = "<group>"; };
+		6605E693159B964D0048362A /* CUPUUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUUIDFormatter.h; sourceTree = "<group>"; };
+		6605E694159B964D0048362A /* CUPUUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUUIDFormatter.m; sourceTree = "<group>"; };
+		66B221D7159C4C30003FDF4E /* CreateUserPkg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CreateUserPkg.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0513CF92159090720071D6B9 /* Frameworks */ = {
+		0596D175159AF27800B898B4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0513CF9A159090720071D6B9 /* Cocoa.framework in Frameworks */,
+				0596D17D159AF27800B898B4 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0513CF8A159090720071D6B9 = {
+		0596D16D159AF27800B898B4 = {
 			isa = PBXGroup;
 			children = (
-				668753C31592651B00A6D7B7 /* CreateUserPkg.icns */,
-				050503631590BD9700522573 /* Security.framework */,
-				0513CF9F159090720071D6B9 /* CreateUserPkg */,
-				0513CF98159090720071D6B9 /* Frameworks */,
-				0513CF96159090720071D6B9 /* Products */,
+				66B221D7159C4C30003FDF4E /* CreateUserPkg.icns */,
+				0596D182159AF27800B898B4 /* CreateUserPkg */,
+				0596D17B159AF27800B898B4 /* Frameworks */,
+				0596D179159AF27800B898B4 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		0513CF96159090720071D6B9 /* Products */ = {
+		0596D179159AF27800B898B4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0513CF95159090720071D6B9 /* CreateUserPkg.app */,
+				0596D178159AF27800B898B4 /* CreateUserPkg.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0513CF98159090720071D6B9 /* Frameworks */ = {
+		0596D17B159AF27800B898B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0513CF99159090720071D6B9 /* Cocoa.framework */,
-				0513CF9B159090720071D6B9 /* Other Frameworks */,
+				0596D17C159AF27800B898B4 /* Cocoa.framework */,
+				0596D17E159AF27800B898B4 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0513CF9B159090720071D6B9 /* Other Frameworks */ = {
+		0596D17E159AF27800B898B4 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0513CF9C159090720071D6B9 /* AppKit.framework */,
-				0513CF9D159090720071D6B9 /* CoreData.framework */,
-				0513CF9E159090720071D6B9 /* Foundation.framework */,
+				0596D17F159AF27800B898B4 /* AppKit.framework */,
+				0596D180159AF27800B898B4 /* CoreData.framework */,
+				0596D181159AF27800B898B4 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		0513CF9F159090720071D6B9 /* CreateUserPkg */ = {
+		0596D182159AF27800B898B4 /* CreateUserPkg */ = {
 			isa = PBXGroup;
 			children = (
-				05759DA41593423D0079D4EF /* CreateUserPkg.entitlements */,
-				0513CFAB159090720071D6B9 /* CUPAppDelegate.h */,
-				0513CFAC159090720071D6B9 /* CUPAppDelegate.m */,
-				0513CFAE159090720071D6B9 /* MainMenu.xib */,
-				0513CFA0159090720071D6B9 /* Supporting Files */,
-				05050356159094E200522573 /* CUPUIDFormatter.h */,
-				05050357159094E200522573 /* CUPUIDFormatter.m */,
-				050503591590A33300522573 /* CUPUserNameFormatter.h */,
-				0505035A1590A33300522573 /* CUPUserNameFormatter.m */,
-				0505035C1590B08A00522573 /* CUPUUIDFormatter.h */,
-				0505035D1590B08A00522573 /* CUPUUIDFormatter.m */,
+				0596D19C159AF2A200B898B4 /* CreateUserPkg.entitlements */,
+				6605E68C159B90070048362A /* CUPAppDelegate.h */,
+				6605E68D159B90070048362A /* CUPAppDelegate.m */,
+				6605E688159B86480048362A /* CUPBestHostFinder.h */,
+				6605E689159B86480048362A /* CUPBestHostFinder.m */,
+				0596D18E159AF27800B898B4 /* CUPDocument.h */,
+				0596D18F159AF27800B898B4 /* CUPDocument.m */,
+				0596D191159AF27800B898B4 /* CUPDocument.xib */,
+				6605E68F159B964D0048362A /* CUPUIDFormatter.h */,
+				6605E690159B964D0048362A /* CUPUIDFormatter.m */,
+				6605E691159B964D0048362A /* CUPUserNameFormatter.h */,
+				6605E692159B964D0048362A /* CUPUserNameFormatter.m */,
+				6605E693159B964D0048362A /* CUPUUIDFormatter.h */,
+				6605E694159B964D0048362A /* CUPUUIDFormatter.m */,
+				0596D194159AF27800B898B4 /* MainMenu.xib */,
+				0596D183159AF27800B898B4 /* Supporting Files */,
 			);
 			path = CreateUserPkg;
 			sourceTree = "<group>";
 		};
-		0513CFA0159090720071D6B9 /* Supporting Files */ = {
+		0596D183159AF27800B898B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				666560651591C49A00A0597E /* create_package.py */,
-				0513CFA1159090720071D6B9 /* CreateUserPkg-Info.plist */,
-				0513CFA2159090720071D6B9 /* InfoPlist.strings */,
-				0513CFA5159090720071D6B9 /* main.m */,
-				0513CFA7159090720071D6B9 /* CreateUserPkg-Prefix.pch */,
-				0513CFA8159090720071D6B9 /* Credits.rtf */,
+				05524F8C159B314900741F47 /* create_package.py */,
+				0596D184159AF27800B898B4 /* CreateUserPkg-Info.plist */,
+				0596D18A159AF27800B898B4 /* CreateUserPkg-Prefix.pch */,
+				0596D18B159AF27800B898B4 /* Credits.rtf */,
+				0596D185159AF27800B898B4 /* InfoPlist.strings */,
+				0596D188159AF27800B898B4 /* main.m */,
+				05524F8F159B32D600741F47 /* read_package.py */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -130,15 +144,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0513CF94159090720071D6B9 /* CreateUserPkg */ = {
+		0596D177159AF27800B898B4 /* CreateUserPkg */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0513CFB3159090720071D6B9 /* Build configuration list for PBXNativeTarget "CreateUserPkg" */;
+			buildConfigurationList = 0596D199159AF27800B898B4 /* Build configuration list for PBXNativeTarget "CreateUserPkg" */;
 			buildPhases = (
-				0513CF91159090720071D6B9 /* Sources */,
-				0513CF92159090720071D6B9 /* Frameworks */,
-				0513CF93159090720071D6B9 /* Resources */,
-				052E298B15921E9800497D01 /* ShellScript */,
-				05C8607E1599ADAA00D88B6A /* ShellScript */,
+				0596D174159AF27800B898B4 /* Sources */,
+				0596D175159AF27800B898B4 /* Frameworks */,
+				0596D176159AF27800B898B4 /* Resources */,
+				6660D821159B2515003BB5E8 /* ShellScript */,
+				6660D823159B2528003BB5E8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -146,55 +160,57 @@
 			);
 			name = CreateUserPkg;
 			productName = CreateUserPkg;
-			productReference = 0513CF95159090720071D6B9 /* CreateUserPkg.app */;
+			productReference = 0596D178159AF27800B898B4 /* CreateUserPkg.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		0513CF8C159090720071D6B9 /* Project object */ = {
+		0596D16F159AF27800B898B4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CUP;
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = "Per Olofsson";
+				ORGANIZATIONNAME = "University of Gothenburg";
 			};
-			buildConfigurationList = 0513CF8F159090720071D6B9 /* Build configuration list for PBXProject "CreateUserPkg" */;
+			buildConfigurationList = 0596D172159AF27800B898B4 /* Build configuration list for PBXProject "CreateUserPkg" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 0513CF8A159090720071D6B9;
-			productRefGroup = 0513CF96159090720071D6B9 /* Products */;
+			mainGroup = 0596D16D159AF27800B898B4;
+			productRefGroup = 0596D179159AF27800B898B4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0513CF94159090720071D6B9 /* CreateUserPkg */,
+				0596D177159AF27800B898B4 /* CreateUserPkg */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0513CF93159090720071D6B9 /* Resources */ = {
+		0596D176159AF27800B898B4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				052E298A15921E8D00497D01 /* create_package.py in Resources */,
-				0513CFA4159090720071D6B9 /* InfoPlist.strings in Resources */,
-				0513CFAA159090720071D6B9 /* Credits.rtf in Resources */,
-				0513CFB0159090720071D6B9 /* MainMenu.xib in Resources */,
-				668753C41592651B00A6D7B7 /* CreateUserPkg.icns in Resources */,
+				0596D187159AF27800B898B4 /* InfoPlist.strings in Resources */,
+				0596D18D159AF27800B898B4 /* Credits.rtf in Resources */,
+				0596D193159AF27800B898B4 /* CUPDocument.xib in Resources */,
+				0596D196159AF27800B898B4 /* MainMenu.xib in Resources */,
+				05524F8D159B314900741F47 /* create_package.py in Resources */,
+				05524F94159B33AB00741F47 /* read_package.py in Resources */,
+				66B221D8159C4C30003FDF4E /* CreateUserPkg.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		052E298B15921E9800497D01 /* ShellScript */ = {
+		6660D821159B2515003BB5E8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
@@ -203,10 +219,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "chmod +x \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/create_package.py\"\n";
+			shellScript = "chmod +x \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"/*.py\n";
 			showEnvVarsInLog = 0;
 		};
-		05C8607E1599ADAA00D88B6A /* ShellScript */ = {
+		6660D823159B2528003BB5E8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -223,41 +239,51 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0513CF91159090720071D6B9 /* Sources */ = {
+		0596D174159AF27800B898B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0513CFA6159090720071D6B9 /* main.m in Sources */,
-				0513CFAD159090720071D6B9 /* CUPAppDelegate.m in Sources */,
-				05050358159094E200522573 /* CUPUIDFormatter.m in Sources */,
-				0505035B1590A33300522573 /* CUPUserNameFormatter.m in Sources */,
-				0505035E1590B08A00522573 /* CUPUUIDFormatter.m in Sources */,
+				0596D189159AF27800B898B4 /* main.m in Sources */,
+				0596D190159AF27800B898B4 /* CUPDocument.m in Sources */,
+				6605E68A159B86480048362A /* CUPBestHostFinder.m in Sources */,
+				6605E68E159B90070048362A /* CUPAppDelegate.m in Sources */,
+				6605E695159B964D0048362A /* CUPUIDFormatter.m in Sources */,
+				6605E696159B964D0048362A /* CUPUserNameFormatter.m in Sources */,
+				6605E697159B964D0048362A /* CUPUUIDFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0513CFA2159090720071D6B9 /* InfoPlist.strings */ = {
+		0596D185159AF27800B898B4 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0513CFA3159090720071D6B9 /* en */,
+				0596D186159AF27800B898B4 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		0513CFA8159090720071D6B9 /* Credits.rtf */ = {
+		0596D18B159AF27800B898B4 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0513CFA9159090720071D6B9 /* en */,
+				0596D18C159AF27800B898B4 /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		0513CFAE159090720071D6B9 /* MainMenu.xib */ = {
+		0596D191159AF27800B898B4 /* CUPDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0513CFAF159090720071D6B9 /* en */,
+				0596D192159AF27800B898B4 /* en */,
+			);
+			name = CUPDocument.xib;
+			sourceTree = "<group>";
+		};
+		0596D194159AF27800B898B4 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0596D195159AF27800B898B4 /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -265,13 +291,11 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0513CFB1159090720071D6B9 /* Debug */ = {
+		0596D197159AF27800B898B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -287,19 +311,17 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
-		0513CFB2159090720071D6B9 /* Release */ = {
+		0596D198159AF27800B898B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -309,33 +331,37 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
-		0513CFB4159090720071D6B9 /* Debug */ = {
+		0596D19A159AF27800B898B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_ENTITLEMENTS = CreateUserPkg/CreateUserPkg.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: University of Gothenburg";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
 				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "56574830-E13E-4657-BCFA-3B7971A19A3A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		0513CFB5159090720071D6B9 /* Release */ = {
+		0596D19B159AF27800B898B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_ENTITLEMENTS = CreateUserPkg/CreateUserPkg.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: University of Gothenburg";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
 				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "56574830-E13E-4657-BCFA-3B7971A19A3A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -343,25 +369,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0513CF8F159090720071D6B9 /* Build configuration list for PBXProject "CreateUserPkg" */ = {
+		0596D172159AF27800B898B4 /* Build configuration list for PBXProject "CreateUserPkg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0513CFB1159090720071D6B9 /* Debug */,
-				0513CFB2159090720071D6B9 /* Release */,
+				0596D197159AF27800B898B4 /* Debug */,
+				0596D198159AF27800B898B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0513CFB3159090720071D6B9 /* Build configuration list for PBXNativeTarget "CreateUserPkg" */ = {
+		0596D199159AF27800B898B4 /* Build configuration list for PBXNativeTarget "CreateUserPkg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0513CFB4159090720071D6B9 /* Debug */,
-				0513CFB5159090720071D6B9 /* Release */,
+				0596D19A159AF27800B898B4 /* Debug */,
+				0596D19B159AF27800B898B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0513CF8C159090720071D6B9 /* Project object */;
+	rootObject = 0596D16F159AF27800B898B4 /* Project object */;
 }
