@@ -175,6 +175,9 @@
         [self.password setStringValue:CUP_PASSWORD_PLACEHOLDER];
         [self.verifyPassword setStringValue:CUP_PASSWORD_PLACEHOLDER];
     }
+    self.image.imageData = [self.docState objectForKey:@"imageData"];
+    self.image.imagePath = [self.docState objectForKey:@"imagePath"];
+    [self.image displayImageData];
 }
 
 + (BOOL)autosavesInPlace
@@ -249,11 +252,9 @@
     SET_DOC_STATE(version);
     [self.docState setObject:[NSString stringWithString:self.shadowHash] forKey:@"shadowHash"];
     if (self.image.imageData != nil) {
-        NSLog(@"setting imageData");
         [self.docState setObject:self.image.imageData forKey:@"imageData"];
     }
     if (self.image.imagePath != nil) {
-        NSLog(@"setting imagePath");
         [self.docState setObject:self.image.imagePath forKey:@"imagePath"];
     }
     
@@ -290,7 +291,7 @@
 - (void)setDocStateKey:(NSString *)key fromDict:(NSDictionary *)dict
 {
     NSString *value = [dict objectForKey:key];
-    if (key != nil && value != nil) {
+    if (value != nil) {
         [self.docState setObject:value forKey:key];
     }
 }
@@ -322,8 +323,8 @@
     [self setDocStateKey:@"packageID"       fromDict:document];
     [self setDocStateKey:@"version"         fromDict:document];
     [self setDocStateKey:@"shadowHash"      fromDict:document];
-    //FIXME: add imageData and imagePath
-    NSLog(@"document:\n%@", document);
+    [self setDocStateKey:@"imageData"       fromDict:document];
+    [self setDocStateKey:@"imagePath"       fromDict:document];
     
     [document release];
     return YES;

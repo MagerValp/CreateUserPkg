@@ -18,7 +18,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, NSURLPboardType, nil]];
+        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSTIFFPboardType, NSURLPboardType, nil]];
         self.imageData = nil;
         self.imagePath = nil;
     }
@@ -53,9 +53,12 @@
 
 - (void)displayImageData
 {
-    NSImage *image = [[NSImage alloc] initWithData:self.imageData];
-    [self setImage:image];
-    [image release];
+    if (self.imageData) {
+        NSImage *image = [[NSImage alloc] initWithData:self.imageData];
+        [self setImage:image];
+        [image release];
+    }
+    [self setNeedsDisplay:YES];
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
@@ -70,18 +73,20 @@
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
     NSPasteboard *pboard = [sender draggingPasteboard];
-    NSString *droppedType = [pboard availableTypeFromArray:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, NSURLPboardType, nil]];
-    NSData *droppedData = [pboard dataForType:droppedType];
-    NSURL *droppedURL = [NSURL URLFromPasteboard:pboard];
+    NSString *droppedType = [pboard availableTypeFromArray:[NSArray arrayWithObjects:NSTIFFPboardType, NSURLPboardType, nil]];
     
-    if (droppedData == nil) {
+    if ([droppedType isEqualToString:NSTIFFPboardType]) {
+        NSData *droppedData = [pboard dataForType:droppedType];
+        [self saveJpegData:droppedData];
+        [self displayImageData];
+        self.imagePath = nil;
+    } else if ([droppedType isEqualToString:NSURLPboardType]) {
+        NSURL *droppedURL = [NSURL URLFromPasteboard:pboard];
+        [self saveUserPicturesPath:droppedURL];
+        [self saveJpegData:[NSData dataWithContentsOfURL:droppedURL]];
+    } else {
         return NO;
     }
-    
-    //FIXME: handle droppedType and read data from opened URL instead
-    [self saveUserPicturesPath:droppedURL];
-    [self saveJpegData:droppedData];
-    [self displayImageData];
     
     [self setNeedsDisplay:YES];
     return YES;

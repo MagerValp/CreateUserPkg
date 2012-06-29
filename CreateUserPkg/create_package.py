@@ -174,7 +174,7 @@ def main(argv):
     if u"imagePath" in input_data:
         user_plist[u"picture"] = [input_data[u"imagePath"]]
     if u"imageData" in input_data:
-        user_plist[u"jpegphoto"] = [plistlib.Data(input_data[u"imageData"])]
+        user_plist[u"jpegphoto"] = [input_data[u"imageData"]]
     
     # Get name, version, package ID, and shadow hash.
     utf8_username = input_data[u"accountName"].encode("utf-8")
