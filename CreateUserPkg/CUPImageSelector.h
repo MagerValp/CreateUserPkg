@@ -8,7 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CUPImageSelector : NSImageView
+@interface CUPImageSelector : NSImageView {
+    NSData *_imageData;
+    NSString *_imagePath;
+}
 
 @property (retain) NSData *imageData;
 @property (retain) NSString *imagePath;
