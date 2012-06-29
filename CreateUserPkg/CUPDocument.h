@@ -8,9 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CUPBestHostFinder.h"
+#import "CUPImageSelector.h"
+
 
 @interface CUPDocument : NSDocument {
     NSWindow *docWindow;
+    
+    CUPImageSelector *_image;
     NSTextField *_fullName;
     NSTextField *_accountName;
     NSSecureTextField *_password;
@@ -19,9 +23,10 @@
     NSTextField *_groupID;
     NSTextField *_homeDirectory;
     NSTextField *_uuid;
+    
     NSTextField *_packageID;
     NSTextField *_version;
-    NSProgressIndicator *_spinner;
+    
     NSMutableString *_shadowHash;
     NSMutableDictionary *_docState;
 }
@@ -30,6 +35,7 @@
 
 @property (assign) IBOutlet NSTextField *fullName;
 @property (assign) IBOutlet NSTextField *accountName;
+@property (assign) IBOutlet CUPImageSelector *image;
 @property (assign) IBOutlet NSSecureTextField *password;
 @property (assign) IBOutlet NSSecureTextField *verifyPassword;
 @property (assign) IBOutlet NSTextField *userID;
@@ -39,8 +45,6 @@
 
 @property (assign) IBOutlet NSTextField *packageID;
 @property (assign) IBOutlet NSTextField *version;
-
-@property (assign) IBOutlet NSProgressIndicator *spinner;
 
 @property (retain) NSMutableString *shadowHash;
 @property (retain) NSMutableDictionary *docState;

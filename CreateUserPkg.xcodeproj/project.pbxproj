@@ -16,6 +16,8 @@
 		0596D190159AF27800B898B4 /* CUPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0596D18F159AF27800B898B4 /* CUPDocument.m */; };
 		0596D193159AF27800B898B4 /* CUPDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0596D191159AF27800B898B4 /* CUPDocument.xib */; };
 		0596D196159AF27800B898B4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0596D194159AF27800B898B4 /* MainMenu.xib */; };
+		05CF2A17159DE745004F36C8 /* CUPImageSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CF2A16159DE745004F36C8 /* CUPImageSelector.m */; };
+		05CF2A1A159DEDE4004F36C8 /* dropimagehere.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF2A19159DEDE4004F36C8 /* dropimagehere.png */; };
 		6605E68A159B86480048362A /* CUPBestHostFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E689159B86480048362A /* CUPBestHostFinder.m */; };
 		6605E68E159B90070048362A /* CUPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E68D159B90070048362A /* CUPAppDelegate.m */; };
 		6605E695159B964D0048362A /* CUPUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E690159B964D0048362A /* CUPUIDFormatter.m */; };
@@ -42,6 +44,9 @@
 		0596D192159AF27800B898B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CUPDocument.xib; sourceTree = "<group>"; };
 		0596D195159AF27800B898B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		0596D19C159AF2A200B898B4 /* CreateUserPkg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CreateUserPkg.entitlements; sourceTree = "<group>"; };
+		05CF2A15159DE745004F36C8 /* CUPImageSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPImageSelector.h; sourceTree = "<group>"; };
+		05CF2A16159DE745004F36C8 /* CUPImageSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPImageSelector.m; sourceTree = "<group>"; };
+		05CF2A19159DEDE4004F36C8 /* dropimagehere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropimagehere.png; sourceTree = "<group>"; };
 		6605E688159B86480048362A /* CUPBestHostFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPBestHostFinder.h; sourceTree = "<group>"; };
 		6605E689159B86480048362A /* CUPBestHostFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPBestHostFinder.m; sourceTree = "<group>"; };
 		6605E68C159B90070048362A /* CUPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPAppDelegate.h; sourceTree = "<group>"; };
@@ -112,6 +117,8 @@
 				6605E68D159B90070048362A /* CUPAppDelegate.m */,
 				6605E688159B86480048362A /* CUPBestHostFinder.h */,
 				6605E689159B86480048362A /* CUPBestHostFinder.m */,
+				05CF2A15159DE745004F36C8 /* CUPImageSelector.h */,
+				05CF2A16159DE745004F36C8 /* CUPImageSelector.m */,
 				0596D18E159AF27800B898B4 /* CUPDocument.h */,
 				0596D18F159AF27800B898B4 /* CUPDocument.m */,
 				0596D191159AF27800B898B4 /* CUPDocument.xib */,
@@ -130,6 +137,7 @@
 		0596D183159AF27800B898B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05CF2A19159DEDE4004F36C8 /* dropimagehere.png */,
 				05524F8C159B314900741F47 /* create_package.py */,
 				0596D184159AF27800B898B4 /* CreateUserPkg-Info.plist */,
 				0596D18A159AF27800B898B4 /* CreateUserPkg-Prefix.pch */,
@@ -202,6 +210,7 @@
 				05524F8D159B314900741F47 /* create_package.py in Resources */,
 				05524F94159B33AB00741F47 /* read_package.py in Resources */,
 				66B221D8159C4C30003FDF4E /* CreateUserPkg.icns in Resources */,
+				05CF2A1A159DEDE4004F36C8 /* dropimagehere.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +259,7 @@
 				6605E695159B964D0048362A /* CUPUIDFormatter.m in Sources */,
 				6605E696159B964D0048362A /* CUPUserNameFormatter.m in Sources */,
 				6605E697159B964D0048362A /* CUPUUIDFormatter.m in Sources */,
+				05CF2A17159DE745004F36C8 /* CUPImageSelector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

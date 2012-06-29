@@ -18,6 +18,7 @@
 
 @synthesize fullName = _fullName;
 @synthesize accountName = _accountName;
+@synthesize image = _image;
 @synthesize password = _password;
 @synthesize verifyPassword = _verifyPassword;
 @synthesize userID = _userID;
@@ -27,8 +28,6 @@
 
 @synthesize packageID = _packageID;
 @synthesize version = _version;
-
-@synthesize spinner = _spinner;
 
 @synthesize shadowHash = _shadowHash;
 @synthesize docState = _docState;
@@ -159,6 +158,8 @@
     [uuidString release];
     CFRelease(theUUID);
     [self.version setStringValue:@"1.0"];
+    
+    //[self.image ];
     
     [self.fullName becomeFirstResponder];
     
