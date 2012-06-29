@@ -171,6 +171,10 @@ def main(argv):
     user_plist[u"realname"] = [input_data[u"fullName"]]
     user_plist[u"shell"] = [u"/bin/bash"]
     user_plist[u"uid"] = [input_data[u"userID"]]
+    if u"imagePath" in input_data:
+        user_plist[u"picture"] = [input_data[u"imagePath"]]
+    if u"imageData" in input_data:
+        user_plist[u"jpegphoto"] = [plistlib.Data(input_data[u"imageData"])]
     
     # Get name, version, package ID, and shadow hash.
     utf8_username = input_data[u"accountName"].encode("utf-8")

@@ -89,6 +89,10 @@ def main(argv):
            u"version":          pkg_info.get("version"),
            u"shadowHash":       shadow_hash,
         }
+        if u"picture" in user and len(user[u"picture"]):
+            output_data[u"imagePath"] = user[u"picture"][0]
+        if u"jpegphoto" in user and len(user[u"jpegphoto"]):
+            output_data[u"imageData"] = user[u"jpegphoto"][0]
         plistlib.writePlist(output_data, sys.stdout)
         
     finally:

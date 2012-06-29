@@ -51,6 +51,13 @@
     }
 }
 
+- (void)displayImageData
+{
+    NSImage *image = [[NSImage alloc] initWithData:self.imageData];
+    [self setImage:image];
+    [image release];
+}
+
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric) {
@@ -71,12 +78,10 @@
         return NO;
     }
     
-    [self saveJpegData:droppedData];
+    //FIXME: handle droppedType and read data from opened URL instead
     [self saveUserPicturesPath:droppedURL];
-    
-    NSImage *image = [[NSImage alloc] initWithData:droppedData];
-    [self setImage:image];
-    [image release];    
+    [self saveJpegData:droppedData];
+    [self displayImageData];
     
     [self setNeedsDisplay:YES];
     return YES;

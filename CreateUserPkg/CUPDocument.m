@@ -248,6 +248,14 @@
     SET_DOC_STATE(packageID);
     SET_DOC_STATE(version);
     [self.docState setObject:[NSString stringWithString:self.shadowHash] forKey:@"shadowHash"];
+    if (self.image.imageData != nil) {
+        NSLog(@"setting imageData");
+        [self.docState setObject:self.image.imageData forKey:@"imageData"];
+    }
+    if (self.image.imagePath != nil) {
+        NSLog(@"setting imagePath");
+        [self.docState setObject:self.image.imagePath forKey:@"imagePath"];
+    }
     
     return YES;
 }
@@ -314,6 +322,8 @@
     [self setDocStateKey:@"packageID"       fromDict:document];
     [self setDocStateKey:@"version"         fromDict:document];
     [self setDocStateKey:@"shadowHash"      fromDict:document];
+    //FIXME: add imageData and imagePath
+    NSLog(@"document:\n%@", document);
     
     [document release];
     return YES;
