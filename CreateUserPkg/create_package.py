@@ -145,6 +145,19 @@ def generate_bom_lines(root_path):
     return bom
 
 
+def get_size_and_nfiles(root):
+    kbytes = 0
+    nfiles = 0
+    for dirpath, dirnames, filenames in os.walk(root):
+        nfiles += len(dirnames) + len(filenames)
+        for filename in filenames:
+            path = os.path.join(dirpath, filename)
+            info = os.lstat(path)
+            nblocks = (info.st_size + 4095) / 4096
+            kbytes += nblocks * 4
+    return kbytes, nfiles + 1
+    
+
 def shell(*args):
     sys.stdout.flush()
     return subprocess.call(args)
@@ -239,13 +252,15 @@ def main(argv):
         root_payload_f.writelines(fix_cpio_owners(user_payload_f))
         root_payload_f.close()
         user_payload_f.close()
+        # Calculate size and number of files in payload.
+        kbytes, nfiles = get_size_and_nfiles(pkg_root_path)
         # Create PackageInfo
         package_info_path = os.path.join(flat_pkg_path, "PackageInfo")
         package_info = PACKAGE_INFO
         package_info = package_info.replace("_BUNDLE_ID_", pkg_id)
         package_info = package_info.replace("_VERSION_", pkg_version)
-        package_info = package_info.replace("_KBYTES_", "8") # FIXME: calculate
-        package_info = package_info.replace("_NFILES_", "12") # FIXME: calculate
+        package_info = package_info.replace("_KBYTES_", "%d" % kbytes)
+        package_info = package_info.replace("_NFILES_", "%d" % nfiles)
         f = open(package_info_path, "w")
         f.write(package_info)
         f.close()
