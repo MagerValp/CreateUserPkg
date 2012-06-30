@@ -60,6 +60,11 @@
     return @"CUPDocument";
 }
 
+- (void)showHelp:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/MagerValp/CreateUserPkg#createuserpkg"]];
+}
+
 - (IBAction)didLeaveFullName:(id)sender {
     // If the user has entered a fullName convert the full name to lower case, strip
     // illegal chars, and use that to fill the accountName.
