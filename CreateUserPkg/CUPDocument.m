@@ -255,7 +255,9 @@
     SET_DOC_STATE(uuid);
     SET_DOC_STATE(packageID);
     SET_DOC_STATE(version);
-    [self.docState setObject:[NSString stringWithString:self.shadowHash] forKey:@"shadowHash"];
+    if ([[self.password stringValue] isEqualToString:CUP_PASSWORD_PLACEHOLDER] == NO) {
+        [self.docState setObject:[NSString stringWithString:self.shadowHash] forKey:@"shadowHash"];
+    }
     if (self.image.imageData != nil) {
         [self.docState setObject:self.image.imageData forKey:@"imageData"];
     }
@@ -307,10 +309,8 @@
     NSString *tmp_plist = [NSTemporaryDirectory() stringByAppendingFormat:@"%08x.pkg", arc4random()];
     NSDictionary *args = [NSDictionary dictionaryWithObject:tmp_plist forKey:@"input"];
     
-    NSLog(@"Writing data to temporary file %@", tmp_plist);
     [data writeToFile:tmp_plist atomically:NO];
     
-    NSLog(@"Executing script");
     document = [self newDictFromScript:[[NSBundle mainBundle] pathForResource:@"read_package" ofType:@"py"] withArgs:args error:outError];
     [[NSFileManager defaultManager] removeItemAtPath:tmp_plist error:nil];
     if (document == nil) {
