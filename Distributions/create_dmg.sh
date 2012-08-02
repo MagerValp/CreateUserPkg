@@ -2,7 +2,7 @@
 
 srcdir="$1"
 
-if [ -z "$srcdir" ]; then
+if [ -z "$srcdir" -o ! -d "$srcdir" ]; then
     echo "Usage: $0 srcdir"
     exit 1
 fi
