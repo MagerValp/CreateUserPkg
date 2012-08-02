@@ -9,7 +9,6 @@
 
 import os
 import sys
-import optparse
 import plistlib
 import hashlib
 import tempfile
@@ -116,12 +115,12 @@ def fix_cpio_owners(f, new_uid=lambda x: 0, new_gid=lambda x: 0):
     return output
     
 
-def get_bom_info(path):
+def get_bom_info(path, new_uid=lambda x: 0, new_gid=lambda x: 0):
     st = os.lstat(path)
     info = [
             path,
             "%o" % st.st_mode,
-            "0/0", # "%d/%d" % (st.st_uid, st.st_gid),
+            "%d/%d" % (new_uid(path), new_gid(path)),
             ]
     if not stat.S_ISDIR(st.st_mode):
         info.append("%d" % st.st_size)
@@ -189,12 +188,16 @@ def main(argv):
     if u"imageData" in input_data:
         user_plist[u"jpegphoto"] = [input_data[u"imageData"]]
     
-    # Get name, version, package ID, and shadow hash.
+    # Get name, version, package ID, shadow hash, and kcpassword.
     utf8_username = input_data[u"accountName"].encode("utf-8")
     pkg_version = input_data[u"version"]
     pkg_name = "create_%s-%s" % (utf8_username, pkg_version)
     pkg_id = input_data[u"packageID"]
     shadow_hash = input_data[u"shadowHash"]
+    if u"kcPassword" in input_data:
+        kcpassword = input_data[u"kcPassword"].data
+    else:
+        kcpassword = None
     
     # Create a package with the plist for our user and a shadow hash file.
     tmp_path = tempfile.mkdtemp()
@@ -206,6 +209,8 @@ def main(argv):
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/dslocal/nodes"), 0755)
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/dslocal/nodes/Default/users"), 0700)
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/shadow/hash"), 0700)
+        if kcpassword:
+            os.makedirs(os.path.join(pkg_root_path, "private/etc"), 0755)
         # Save user plist.
         user_plist_name = "%s.plist" % utf8_username
         user_plist_path = os.path.join(pkg_root_path,
@@ -222,7 +227,13 @@ def main(argv):
         f.write(shadow_hash)
         f.close()
         os.chmod(shadow_hash_path, 0600)
-        
+        # Save kcpassword.
+        if kcpassword:
+            kcpassword_path = os.path.join(pkg_root_path, "private/etc/kcpassword")
+            f = open(kcpassword_path, "w")
+            f.write(kcpassword)
+            f.close()
+            os.chmod(kcpassword_path, 0600)
         # Create a flat package structure.
         flat_pkg_path = os.path.join(tmp_path, pkg_name + "_pkg")
         scripts_path = os.path.join(flat_pkg_path, "Scripts")

@@ -15,6 +15,8 @@ Credits
 Version History
 ---------------
 
+* 1.2
+    * Added automatic login using kcpassword.
 * 1.1
     * create_user.pkg files can now be opened for editing.
     * Added user picture.

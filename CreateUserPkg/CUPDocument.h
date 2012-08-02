@@ -23,11 +23,13 @@
     NSTextField *_groupID;
     NSTextField *_homeDirectory;
     NSTextField *_uuid;
+    NSButton *_automaticLogin;
     
     NSTextField *_packageID;
     NSTextField *_version;
     
     NSMutableString *_shadowHash;
+    NSData *_kcPassword;
     NSMutableDictionary *_docState;
 }
 
@@ -42,18 +44,21 @@
 @property (assign) IBOutlet NSTextField *groupID;
 @property (assign) IBOutlet NSTextField *homeDirectory;
 @property (assign) IBOutlet NSTextField *uuid;
+@property (assign) IBOutlet NSButton *automaticLogin;
 
 @property (assign) IBOutlet NSTextField *packageID;
 @property (assign) IBOutlet NSTextField *version;
 
 @property (retain) NSMutableString *shadowHash;
+@property (retain) NSData *kcPassword;
 @property (retain) NSMutableDictionary *docState;
 
 - (IBAction)didLeaveFullName:(id)sender;
 - (IBAction)didLeaveAccountName:(id)sender;
 - (IBAction)didLeavePassword:(id)sender;
 
-- (void)calculateShadowHash:(NSString *)password;
+- (void)calculateShadowHash:(NSString *)pwd;
+- (void)calculateKCPassword:(NSString *)pwd;
 - (void)setTextField:(NSTextField *)field withKey:(NSString *)key;
 - (void)setDocStateKey:(NSString *)key fromDict:(NSDictionary *)dict;
 - (BOOL)validateField:(NSControl *)field validator:(BOOL (^)(NSControl *))valFunc errorMsg:(NSString *)msg;
@@ -64,6 +69,6 @@
 #define SALTED_SHA1_OFFSET (64 + 40 + 64)
 #define SHADOW_HASH_LEN 1240
 
-#define CUP_PASSWORD_PLACEHOLDER @"SEI PHA TSX STX $D418 JMP LOOP"
+#define CUP_PASSWORD_PLACEHOLDER @"SEIPHATSXSTX$D418JMPC000"
 
 @end

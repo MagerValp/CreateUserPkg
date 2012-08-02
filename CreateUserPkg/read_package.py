@@ -77,6 +77,14 @@ def main(argv):
         f = open(shadow_hash_path)
         shadow_hash = f.read()
         f.close()
+        # Read kcpassword.
+        kcpassword_path = os.path.join(payload_path, "private/etc/kcpassword")
+        try:
+            f = open(kcpassword_path)
+            kcpassword = f.read()
+            f.close()
+        except IOError:
+            kcpassword = None
         # Write the extracted document data to stdout as a plist.
         output_data = {
            u"fullName":         user[u"realname"][0],
@@ -93,6 +101,8 @@ def main(argv):
             output_data[u"imagePath"] = user[u"picture"][0]
         if u"jpegphoto" in user and len(user[u"jpegphoto"]):
             output_data[u"imageData"] = user[u"jpegphoto"][0]
+        if kcpassword:
+            output_data[u"kcPassword"] = plistlib.Data(kcpassword)
         plistlib.writePlist(output_data, sys.stdout)
         
     finally:

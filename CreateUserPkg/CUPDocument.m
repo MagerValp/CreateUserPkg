@@ -25,11 +25,13 @@
 @synthesize groupID = _groupID;
 @synthesize homeDirectory = _homeDirectory;
 @synthesize uuid = _uuid;
+@synthesize automaticLogin = _automaticLogin;
 
 @synthesize packageID = _packageID;
 @synthesize version = _version;
 
 @synthesize shadowHash = _shadowHash;
+@synthesize kcPassword = _kcPassword;
 @synthesize docState = _docState;
 
 
@@ -39,14 +41,16 @@
     if (self) {
         _docState = [[NSMutableDictionary alloc] init];
         _shadowHash = [[NSMutableString alloc] initWithString:@""];
+        _kcPassword = nil;
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [_docState release];
-    [_shadowHash release];
+    self.docState = nil;
+    self.shadowHash = nil;
+    self.kcPassword = nil;
     [super dealloc];
 }
 
@@ -96,6 +100,8 @@
         if ([[self.password stringValue] isEqualToString:[self.verifyPassword stringValue]]) {
             if ([[self.password stringValue] isEqualToString:CUP_PASSWORD_PLACEHOLDER] == NO) {
                 [self calculateShadowHash:[self.password stringValue]];
+                [self calculateKCPassword:[self.password stringValue]];
+                [self.automaticLogin setEnabled:YES];
             }
         }
     }
@@ -115,7 +121,7 @@
     CC_SHA1_Init(&ctx);
     salt->value = arc4random();
     CC_SHA1_Update(&ctx, salt->bytes, sizeof(salt->bytes));
-    CC_SHA1_Update(&ctx, [pwd UTF8String], strlen([pwd UTF8String]));
+    CC_SHA1_Update(&ctx, [pwd UTF8String], (CC_LONG)[pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
     CC_SHA1_Final(hash, &ctx);
     
     // Generate new shadow hash.
@@ -131,6 +137,29 @@
     assert([self.shadowHash length] == SHADOW_HASH_LEN);
 }
 
+#define KCKEY_LEN 11
+const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD, 0xEA, 0xA3, 0xB9, 0x1F};
+
+- (void)calculateKCPassword:(NSString *)pwd
+{
+    int i;
+    NSUInteger pwdlen = [pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+    // kcpassword stores the password plus null terminator, rounded up to the nearest 12 bytes.
+    NSUInteger rounded12len = ((pwdlen + 12) / 12) * 12;
+    unsigned char *kcbuf = malloc(rounded12len);
+    
+    // Get UTF-8 encoded data and xor it with the key.
+    const unsigned char *pwdbuf = [[pwd dataUsingEncoding:NSUTF8StringEncoding] bytes];
+    for (i = 0; i < pwdlen; i++) {
+        kcbuf[i] = pwdbuf[i] ^ kcPasswordKey[i % KCKEY_LEN];
+    }
+    kcbuf[i] = kcPasswordKey[i % KCKEY_LEN];
+    
+    self.kcPassword = [NSData dataWithBytes:kcbuf length:rounded12len];
+    
+    free(kcbuf);
+}
+
 - (void)setTextField:(NSTextField *)field withKey:(NSString *)key
 {
     NSString *value = [self.docState objectForKey:key];
@@ -139,12 +168,13 @@
     }
 }
 
-#define UPDATE_FIELD(FIELD) [self setTextField:self.FIELD withKey:@#FIELD]
+#define UPDATE_TEXT_FIELD(FIELD) [self setTextField:self.FIELD withKey:@#FIELD]
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
     
+    // Initialize form with default values.
     CUPUIDFormatter *uidFormatter = [[CUPUIDFormatter alloc] init];
     [self.userID setFormatter:uidFormatter];
     [self.groupID setFormatter:uidFormatter];
@@ -164,21 +194,29 @@
     CFRelease(theUUID);
     [self.version setStringValue:@"1.0"];
     
-    //[self.image ];
-    
     [self.fullName becomeFirstResponder];
     
-    UPDATE_FIELD(fullName);
-    UPDATE_FIELD(accountName);
-    UPDATE_FIELD(userID);
-    UPDATE_FIELD(groupID);
-    UPDATE_FIELD(homeDirectory);
-    UPDATE_FIELD(uuid);
-    UPDATE_FIELD(packageID);
-    UPDATE_FIELD(version);
+    // Load values from document state.
+    UPDATE_TEXT_FIELD(fullName);
+    UPDATE_TEXT_FIELD(accountName);
+    UPDATE_TEXT_FIELD(userID);
+    UPDATE_TEXT_FIELD(groupID);
+    UPDATE_TEXT_FIELD(homeDirectory);
+    UPDATE_TEXT_FIELD(uuid);
+    UPDATE_TEXT_FIELD(packageID);
+    UPDATE_TEXT_FIELD(version);
     if ([self.docState objectForKey:@"shadowHash"] != nil) {
         [self.password setStringValue:CUP_PASSWORD_PLACEHOLDER];
         [self.verifyPassword setStringValue:CUP_PASSWORD_PLACEHOLDER];
+    }
+    [self.automaticLogin setEnabled:YES];
+    if ([self.docState objectForKey:@"kcPassword"] != nil) {
+        [self.automaticLogin setState:NSOnState];
+    } else {
+        [self.automaticLogin setState:NSOffState];
+        if ([[self.password stringValue] isEqualToString:CUP_PASSWORD_PLACEHOLDER]) {
+            [self.automaticLogin setEnabled:NO];
+        }
     }
     self.image.imageData = [self.docState objectForKey:@"imageData"];
     self.image.imagePath = [self.docState objectForKey:@"imagePath"];
@@ -258,6 +296,9 @@
     if ([[self.password stringValue] isEqualToString:CUP_PASSWORD_PLACEHOLDER] == NO) {
         [self.docState setObject:[NSString stringWithString:self.shadowHash] forKey:@"shadowHash"];
     }
+    if ([self.automaticLogin state] == NSOnState) {
+        [self.docState setObject:self.kcPassword forKey:@"kcPassword"];
+    }
     if (self.image.imageData != nil) {
         [self.docState setObject:self.image.imageData forKey:@"imageData"];
     }
@@ -330,6 +371,7 @@
     [self setDocStateKey:@"shadowHash"      fromDict:document];
     [self setDocStateKey:@"imageData"       fromDict:document];
     [self setDocStateKey:@"imagePath"       fromDict:document];
+    [self setDocStateKey:@"kcPassword"      fromDict:document];
     
     [document release];
     return YES;
