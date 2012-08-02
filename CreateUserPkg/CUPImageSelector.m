@@ -33,10 +33,17 @@
     [super dealloc];
 }
 
-- (void)saveJpegData:(NSData *)data
+- (BOOL)saveJpegData:(NSData *)data
 {
     NSBitmapImageRep *imgrep = [NSBitmapImageRep imageRepWithData:data];
+    if (imgrep == nil) {
+        return NO;
+    }
     self.imageData = [imgrep representationUsingType:NSJPEGFileType properties:nil];
+    if (self.imageData == nil) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)saveUserPicturesPath:(NSURL *)url
@@ -77,13 +84,17 @@
     
     if ([droppedType isEqualToString:NSTIFFPboardType]) {
         NSData *droppedData = [pboard dataForType:droppedType];
-        [self saveJpegData:droppedData];
+        if ([self saveJpegData:droppedData] == NO) {
+            return NO;
+        }
         [self displayImageData];
         self.imagePath = nil;
     } else if ([droppedType isEqualToString:NSURLPboardType]) {
         NSURL *droppedURL = [NSURL URLFromPasteboard:pboard];
+        if ([self saveJpegData:[NSData dataWithContentsOfURL:droppedURL]] == NO) {
+            return NO;
+        }
         [self saveUserPicturesPath:droppedURL];
-        [self saveJpegData:[NSData dataWithContentsOfURL:droppedURL]];
     } else {
         return NO;
     }

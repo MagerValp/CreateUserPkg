@@ -16,7 +16,7 @@
 @property (retain) NSData *imageData;
 @property (retain) NSString *imagePath;
 
-- (void)saveJpegData:(NSData *)data;
+- (BOOL)saveJpegData:(NSData *)data;
 - (void)saveUserPicturesPath:(NSURL *)url;
 - (void)displayImageData;
 
