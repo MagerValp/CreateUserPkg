@@ -373,6 +373,8 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [self setDocStateKey:@"imagePath"       fromDict:document];
     [self setDocStateKey:@"kcPassword"      fromDict:document];
     
+    self.kcPassword = [document objectForKey:@"kcPassword"];
+    
     [document release];
     return YES;
 }
