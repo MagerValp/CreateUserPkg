@@ -108,7 +108,7 @@ PlistArrayAdd "$3/private/var/db/dslocal/nodes/Default/groups/admin.plist" users
 """
 
 PI_ENABLE_AUTOLOGIN = """
-PlistArrayAdd "$3/Library/Preferences/com.apple.loginwindow.plist autoLoginUser _USERNAME_
+PlistArrayAdd "$3/Library/Preferences/com.apple.loginwindow.plist" autoLoginUser _USERNAME_
 """
 
 PI_LIVE_KILLDS = """
