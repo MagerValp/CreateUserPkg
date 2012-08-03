@@ -20,7 +20,7 @@
     NSSecureTextField *_password;
     NSSecureTextField *_verifyPassword;
     NSTextField *_userID;
-    NSTextField *_groupID;
+    NSPopUpButton *_accountType;
     NSTextField *_homeDirectory;
     NSTextField *_uuid;
     NSButton *_automaticLogin;
@@ -41,7 +41,7 @@
 @property (assign) IBOutlet NSSecureTextField *password;
 @property (assign) IBOutlet NSSecureTextField *verifyPassword;
 @property (assign) IBOutlet NSTextField *userID;
-@property (assign) IBOutlet NSTextField *groupID;
+@property (assign) IBOutlet NSPopUpButton *accountType;
 @property (assign) IBOutlet NSTextField *homeDirectory;
 @property (assign) IBOutlet NSTextField *uuid;
 @property (assign) IBOutlet NSButton *automaticLogin;
@@ -70,5 +70,10 @@
 #define SHADOW_HASH_LEN 1240
 
 #define CUP_PASSWORD_PLACEHOLDER @"SEIPHATSXSTX$D418JMPC000"
+
+enum {
+    ACCOUNT_TYPE_STANDARD = 0,
+    ACCOUNT_TYPE_ADMIN
+};
 
 @end

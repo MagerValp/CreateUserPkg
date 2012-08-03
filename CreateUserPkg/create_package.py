@@ -23,18 +23,95 @@ REQUIRED_KEYS = set((
     u"accountName",
     u"shadowHash",
     u"userID",
-    u"groupID",
+    u"isAdmin",
     u"homeDirectory",
     u"uuid",
     u"packageID",
     u"version",
 ))
 
-POSTINSTALL = """#!/bin/sh
+POSTINSTALL_TEMPLATE = """#!/bin/bash
 #
 # postinstall for local account install
 
+_POSTINSTALL_REQUIREMENTS_
+_POSTINSTALL_ACTIONS_
 if [ "$3" == "/" ]; then
+_POSTINSTALL_LIVE_ACTIONS_
+fi
+
+exit 0
+"""
+
+PI_REQ_PLIST_FUNCS = """
+SetCaseInsensitive() {
+    # Sets case insensitive pattern matching and returns the previous state
+    if [[ $(shopt -p nocasematch) == 'shopt -u nocasematch' ]]; then
+        shopt -s nocasematch
+        return 1
+    fi
+    return 0
+}
+
+RevertCaseState() {
+    # Revert to the previous state of nocasematch
+    if [[ $1 == 0 ]]; then
+        shopt -s nocasematch
+    else
+        shopt -u nocasematch
+    fi
+}
+
+PlistArrayContains() {
+    # Args: 'plist path' 'key name in plist' 'value to search for'
+    if [[ (! -a "$1") || (! -r "$1") || (! -w "$1") ]]; then
+        echo "PlistArrayContains: Plist not present/readable/writable ($1)"
+        return 2
+    fi
+    local _ArrayContents=$(/usr/libexec/PlistBuddy -c "Print :$2" "$1" 2>&1)
+    local _NoSuchKey='^Print: Entry, ".+", Does Not Exist$'
+    if [[ ${_ArrayContents} =~ ${_NoSuchKey} ]]; then
+        echo "PlistArrayContains: Plist present but key is missing ($2)"
+        return 3
+    fi
+    SetCaseInsensitive
+    local _OriginalCapsState=$?
+    local _MatchState=1
+    local _RegExMatch="^$3$"
+    for _ArrayItem in ${_ArrayContents}; do
+        if [[ ${_ArrayItem} =~ ${_RegExMatch} ]]; then
+            _MatchState=0
+        fi
+    done
+    RevertCaseState ${_OriginalCapsState}
+    return ${_MatchState}
+}
+
+PlistArrayAdd() {
+    # Args: 'plist path' 'key name in plist' 'value to add'
+    PlistArrayContains "$1" "$2" "$3"
+    local _ContainsResult=$?
+    if [[ $_ContainsResult > 1 ]]; then
+        # Error other than 'not present' - pass it up
+        return 1
+    elif [[ $_ContainsResult = 0 ]]; then
+        return 0
+    fi
+    /usr/libexec/PlistBuddy -c "Add :$2:0 string \\"$3\\"" "$1"
+}
+"""
+
+PI_ADD_ADMIN_GROUPS = """
+ACCOUNT_TYPE=ADMIN # Used by read_package.py.
+PlistArrayAdd "$3/private/var/db/dslocal/nodes/Default/groups/admin.plist" users "_USERNAME_" && \\
+    PlistArrayAdd "$3/private/var/db/dslocal/nodes/Default/groups/admin.plist" groupmembers "_UUID_"
+"""
+
+PI_ENABLE_AUTOLOGIN = """
+PlistArrayAdd "$3/Library/Preferences/com.apple.loginwindow.plist autoLoginUser _USERNAME_
+"""
+
+PI_LIVE_KILLDS = """
     # we're operating on the boot volume
     # kill local directory service so it will see our local
     # file changes -- it will automatically restart
@@ -48,9 +125,8 @@ if [ "$3" == "/" ]; then
         echo "Restarting opendirectoryd"
         /usr/bin/killall opendirectoryd
     fi
-fi
-exit 0
 """
+
 PACKAGE_INFO = """
 <pkg-info format-version="2" identifier="_BUNDLE_ID_" version="_VERSION_" install-location="/" auth="root">
     <payload installKBytes="_KBYTES_" numberOfFiles="_NFILES_"/>
@@ -176,7 +252,7 @@ def main(argv):
     user_plist = dict()
     user_plist[u"authentication_authority"] = [u";ShadowHash;"]
     user_plist[u"generateduid"] = [input_data[u"uuid"]]
-    user_plist[u"gid"] = [input_data[u"groupID"]]
+    user_plist[u"gid"] = [u"20"]
     user_plist[u"home"] = [input_data[u"homeDirectory"]]
     user_plist[u"name"] = [input_data[u"accountName"]]
     user_plist[u"passwd"] = [u"********"]
@@ -198,6 +274,7 @@ def main(argv):
         kcpassword = input_data[u"kcPassword"].data
     else:
         kcpassword = None
+    is_admin = input_data.get(u"isAdmin", False)
     
     # Create a package with the plist for our user and a shadow hash file.
     tmp_path = tempfile.mkdtemp()
@@ -239,9 +316,25 @@ def main(argv):
         scripts_path = os.path.join(flat_pkg_path, "Scripts")
         os.makedirs(scripts_path, 0755)
         # Create postinstall script.
+        pi_reqs = set()
+        pi_actions = set()
+        pi_live_actions = set()
+        pi_live_actions.add(PI_LIVE_KILLDS)
+        if is_admin:
+            pi_actions.add(PI_ADD_ADMIN_GROUPS)
+            pi_reqs.add(PI_REQ_PLIST_FUNCS)
+        if kcpassword:
+            pi_actions.add(PI_ENABLE_AUTOLOGIN)
+            pi_reqs.add(PI_REQ_PLIST_FUNCS)
+        postinstall = POSTINSTALL_TEMPLATE
+        postinstall = postinstall.replace("_POSTINSTALL_REQUIREMENTS_", "\n".join(pi_reqs))
+        postinstall = postinstall.replace("_POSTINSTALL_ACTIONS_",      "\n".join(pi_actions))
+        postinstall = postinstall.replace("_POSTINSTALL_LIVE_ACTIONS_", "\n".join(pi_live_actions))
+        postinstall = postinstall.replace("_USERNAME_", utf8_username)
+        postinstall = postinstall.replace("_UUID_", input_data[u"uuid"])
         postinstall_path = os.path.join(scripts_path, "postinstall")
         f = open(postinstall_path, "w")
-        f.write(POSTINSTALL)
+        f.write(postinstall)
         f.close()
         os.chmod(postinstall_path, 0755)
         # Create Bom.

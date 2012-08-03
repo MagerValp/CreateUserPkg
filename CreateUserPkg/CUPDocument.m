@@ -22,7 +22,7 @@
 @synthesize password = _password;
 @synthesize verifyPassword = _verifyPassword;
 @synthesize userID = _userID;
-@synthesize groupID = _groupID;
+@synthesize accountType = _accountType;
 @synthesize homeDirectory = _homeDirectory;
 @synthesize uuid = _uuid;
 @synthesize automaticLogin = _automaticLogin;
@@ -177,10 +177,8 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     // Initialize form with default values.
     CUPUIDFormatter *uidFormatter = [[CUPUIDFormatter alloc] init];
     [self.userID setFormatter:uidFormatter];
-    [self.groupID setFormatter:uidFormatter];
     [uidFormatter release];
     [self.userID setStringValue:@"499"];
-    [self.groupID setStringValue:@"80"];
     CUPUserNameFormatter *userNameFormatter = [[CUPUserNameFormatter alloc] init];
     [self.accountName setFormatter:userNameFormatter];
     [userNameFormatter release];
@@ -200,7 +198,6 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     UPDATE_TEXT_FIELD(fullName);
     UPDATE_TEXT_FIELD(accountName);
     UPDATE_TEXT_FIELD(userID);
-    UPDATE_TEXT_FIELD(groupID);
     UPDATE_TEXT_FIELD(homeDirectory);
     UPDATE_TEXT_FIELD(uuid);
     UPDATE_TEXT_FIELD(packageID);
@@ -221,6 +218,11 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     self.image.imageData = [self.docState objectForKey:@"imageData"];
     self.image.imagePath = [self.docState objectForKey:@"imagePath"];
     [self.image displayImageData];
+    if ([self.docState objectForKey:@"isAdmin"] != nil) {
+        [self.accountType selectItemAtIndex:[[self.docState objectForKey:@"isAdmin"] boolValue] ? ACCOUNT_TYPE_ADMIN : ACCOUNT_TYPE_STANDARD];
+    } else {
+        [self.accountType selectItemAtIndex:ACCOUNT_TYPE_ADMIN];
+    }
 }
 
 + (BOOL)autosavesInPlace
@@ -279,7 +281,6 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     VALIDATE([self validateField:self.password       validator:validateNotEmpty       errorMsg:@"Please enter a password"]);
     VALIDATE([self validateField:self.verifyPassword validator:validateSameAsPassword errorMsg:@"Password verification doesn't match"]);
     VALIDATE([self validateField:self.userID         validator:validateNotEmpty       errorMsg:@"Please enter a user ID"]);
-    VALIDATE([self validateField:self.groupID        validator:validateNotEmpty       errorMsg:@"Please enter a group ID"]);
     VALIDATE([self validateField:self.homeDirectory  validator:validateHomeDir        errorMsg:@"Please enter a home directory path"]);
     VALIDATE([self validateField:self.uuid           validator:validateUUID           errorMsg:@"Please enter a valid UUID"]);
     VALIDATE([self validateField:self.packageID      validator:validateNotEmpty       errorMsg:@"Please enter a package ID"]);
@@ -288,7 +289,6 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     SET_DOC_STATE(fullName);
     SET_DOC_STATE(accountName);
     SET_DOC_STATE(userID);
-    SET_DOC_STATE(groupID);
     SET_DOC_STATE(homeDirectory);
     SET_DOC_STATE(uuid);
     SET_DOC_STATE(packageID);
@@ -305,6 +305,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     if (self.image.imagePath != nil) {
         [self.docState setObject:self.image.imagePath forKey:@"imagePath"];
     }
+    [self.docState setObject:[NSNumber numberWithBool:[self.accountType indexOfSelectedItem] == ACCOUNT_TYPE_ADMIN] forKey:@"isAdmin"];
     
     return YES;
 }
@@ -363,7 +364,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [self setDocStateKey:@"fullName"        fromDict:document];
     [self setDocStateKey:@"accountName"     fromDict:document];
     [self setDocStateKey:@"userID"          fromDict:document];
-    [self setDocStateKey:@"groupID"         fromDict:document];
+    [self setDocStateKey:@"isAdmin"         fromDict:document];
     [self setDocStateKey:@"homeDirectory"   fromDict:document];
     [self setDocStateKey:@"uuid"            fromDict:document];
     [self setDocStateKey:@"packageID"       fromDict:document];

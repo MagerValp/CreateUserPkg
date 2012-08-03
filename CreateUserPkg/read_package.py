@@ -85,17 +85,29 @@ def main(argv):
             f.close()
         except IOError:
             kcpassword = None
+        # Check if user is admin.
+        is_admin = False
+        if int(user[u"gid"][0]) == 80:
+            is_admin = True
+        try:
+            f = open(os.path.join(expanded_pkg_path, "Scripts/postinstall"))
+            postinstall = f.read()
+            f.close()
+        except IOError:
+            pass
+        if "ACCOUNT_TYPE=ADMIN" in postinstall:
+            is_admin = True
         # Write the extracted document data to stdout as a plist.
         output_data = {
-           u"fullName":         user[u"realname"][0],
-           u"accountName":      user[u"name"][0],
-           u"userID":           user[u"uid"][0],
-           u"groupID":          user[u"gid"][0],
-           u"homeDirectory":    user[u"home"][0],
-           u"uuid":             user[u"generateduid"][0],
-           u"packageID":        pkg_info.get("identifier"),
-           u"version":          pkg_info.get("version"),
-           u"shadowHash":       shadow_hash,
+            u"fullName":         user[u"realname"][0],
+            u"accountName":      user[u"name"][0],
+            u"userID":           user[u"uid"][0],
+            u"isAdmin":          is_admin,
+            u"homeDirectory":    user[u"home"][0],
+            u"uuid":             user[u"generateduid"][0],
+            u"packageID":        pkg_info.get("identifier"),
+            u"version":          pkg_info.get("version"),
+            u"shadowHash":       shadow_hash,
         }
         if u"picture" in user and len(user[u"picture"]):
             output_data[u"imagePath"] = user[u"picture"][0]

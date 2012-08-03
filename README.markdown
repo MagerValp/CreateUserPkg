@@ -17,7 +17,7 @@ Credits
 
 * Code by Per Olofsson, <per.olofsson@gu.se>
 * User deployment method by Greg Neagle
-* Original `CreateUser.pkg` by Pete Akins
+* Bash plist modification code by Michael Lynn
 
 
 Version History
@@ -25,6 +25,7 @@ Version History
 
 * 1.2
     * Added automatic login using kcpassword.
+    * Package now adds users to admin group instead of using primary group 80 (thanks to Michael Lynn, Jason Bush, Greg Neagle). Primary group is always 20.
 * 1.1
     * create_user.pkg files can now be opened for editing.
     * Added user picture.
