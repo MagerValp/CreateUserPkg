@@ -37,6 +37,7 @@ POSTINSTALL_TEMPLATE = """#!/bin/bash
 _POSTINSTALL_REQUIREMENTS_
 _POSTINSTALL_ACTIONS_
 if [ "$3" == "/" ]; then
+    # we're operating on the boot volume
 _POSTINSTALL_LIVE_ACTIONS_
 fi
 
@@ -44,60 +45,32 @@ exit 0
 """
 
 PI_REQ_PLIST_FUNCS = """
-SetCaseInsensitive() {
-    # Sets case insensitive pattern matching and returns the previous state
-    if [[ $(shopt -p nocasematch) == 'shopt -u nocasematch' ]]; then
-        shopt -s nocasematch
-        return 1
-    fi
-    return 0
-}
-
-RevertCaseState() {
-    # Revert to the previous state of nocasematch
-    if [[ $1 == 0 ]]; then
-        shopt -s nocasematch
-    else
-        shopt -u nocasematch
-    fi
-}
-
-PlistArrayContains() {
-    # Args: 'plist path' 'key name in plist' 'value to search for'
-    if [[ (! -a "$1") || (! -r "$1") || (! -w "$1") ]]; then
-        echo "PlistArrayContains: Plist not present/readable/writable ($1)"
-        return 2
-    fi
-    local _ArrayContents=$(/usr/libexec/PlistBuddy -c "Print :$2" "$1" 2>&1)
-    local _NoSuchKey='^Print: Entry, ".+", Does Not Exist$'
-    if [[ ${_ArrayContents} =~ ${_NoSuchKey} ]]; then
-        echo "PlistArrayContains: Plist present but key is missing ($2)"
-        return 3
-    fi
-    SetCaseInsensitive
-    local _OriginalCapsState=$?
-    local _MatchState=1
-    local _RegExMatch="^$3$"
-    for _ArrayItem in ${_ArrayContents}; do
-        if [[ ${_ArrayItem} =~ ${_RegExMatch} ]]; then
-            _MatchState=0
-        fi
-    done
-    RevertCaseState ${_OriginalCapsState}
-    return ${_MatchState}
-}
-
 PlistArrayAdd() {
-    # Args: 'plist path' 'key name in plist' 'value to add'
-    PlistArrayContains "$1" "$2" "$3"
-    local _ContainsResult=$?
-    if [[ $_ContainsResult > 1 ]]; then
-        # Error other than 'not present' - pass it up
-        return 1
-    elif [[ $_ContainsResult = 0 ]]; then
-        return 0
+    # Add $value to $array_name in $plist_path, creating if necessary
+    local plist_path="$1"
+    local array_name="$2"
+    local value="$3"
+    local old_values
+    local item
+    
+    old_values=$(/usr/libexec/PlistBuddy -c "Print :$array_name" "$plist_path" 2>/dev/null)
+    if [[ $? == 1 ]]; then
+        # Array doesn't exist, create it
+        /usr/libexec/PlistBuddy -c "Add :$array_name array" "$plist_path"
+    else
+        # Array already exists, check if array already contains value
+        IFS=$'\\012' 
+        for item in $old_values; do
+            unset IFS
+            if [[ "$item" =~ ^\\ *$value$ ]]; then
+                # Array already contains value
+                return 0
+            fi
+        done
+        unset IFS
     fi
-    /usr/libexec/PlistBuddy -c "Add :$2:0 string \\"$3\\"" "$1"
+    # Add item to array
+    /usr/libexec/PlistBuddy -c "Add :$array_name: string \\"$value\\"" "$plist_path"
 }
 """
 
@@ -108,23 +81,13 @@ PlistArrayAdd "$3/private/var/db/dslocal/nodes/Default/groups/admin.plist" users
 """
 
 PI_ENABLE_AUTOLOGIN = """
-PlistArrayAdd "$3/Library/Preferences/com.apple.loginwindow.plist" autoLoginUser _USERNAME_
+/usr/libexec/PlistBuddy -c "Add :autoLoginUser string \"_USERNAME_\"" /Library/Preferences/com.apple.loginwindow.plist
 """
 
 PI_LIVE_KILLDS = """
-    # we're operating on the boot volume
     # kill local directory service so it will see our local
     # file changes -- it will automatically restart
-    os_major_ver=`/usr/bin/uname -r | /usr/bin/cut -d. -f1`
-    if [ $os_major_ver -le 10 ]; then
-        # Snow Leopard or Leopard
-        echo "Restarting DirectoryService"
-        /usr/bin/killall DirectoryService
-    else
-        # Lion or later
-        echo "Restarting opendirectoryd"
-        /usr/bin/killall opendirectoryd
-    fi
+    /usr/bin/killall DirectoryService 2>/dev/null || /usr/bin/killall opendirectoryd 2>/dev/null
 """
 
 PACKAGE_INFO = """
@@ -325,7 +288,6 @@ def main(argv):
             pi_reqs.add(PI_REQ_PLIST_FUNCS)
         if kcpassword:
             pi_actions.add(PI_ENABLE_AUTOLOGIN)
-            pi_reqs.add(PI_REQ_PLIST_FUNCS)
         postinstall = POSTINSTALL_TEMPLATE
         postinstall = postinstall.replace("_POSTINSTALL_REQUIREMENTS_", "\n".join(pi_reqs))
         postinstall = postinstall.replace("_POSTINSTALL_ACTIONS_",      "\n".join(pi_actions))
