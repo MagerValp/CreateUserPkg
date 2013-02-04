@@ -294,9 +294,17 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     SET_DOC_STATE(packageID);
     SET_DOC_STATE(version);
     if ([[self.password stringValue] isEqualToString:CUP_PASSWORD_PLACEHOLDER] == NO) {
+        if ([self.shadowHash length] == 0) {
+            NSLog(@"shadowHash is empty, calculating new hash");
+            [self calculateShadowHash:[self.password stringValue]];
+        }
         [self.docState setObject:[NSString stringWithString:self.shadowHash] forKey:@"shadowHash"];
     }
     if ([self.automaticLogin state] == NSOnState) {
+        if ([self.kcPassword length] == 0) {
+            NSLog(@"kcPassword is empty, calculating new hash");
+            [self calculateKCPassword:[self.password stringValue]];
+        }
         [self.docState setObject:self.kcPassword forKey:@"kcPassword"];
     }
     if (self.image.imageData != nil) {
