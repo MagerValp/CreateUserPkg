@@ -1,11 +1,17 @@
 CreateUserPkg
 =============
 
+CreateUserPkg has a homepage at [http://magervalp.github.com/CreateUserPkg/](http://magervalp.github.com/CreateUserPkg/)
+
+
+Overview
+--------
+
 This utility creates packages that create local user accounts when installed. The packages can create users on 10.5-10.8, and they are compatible with all workflows that can install standard installer pkgs. For the details on how the packages work, see Greg Neagle's article in the [May 2012 issue of MacTech](http://www.mactech.com/issue-TOCs-2012).
 
 
 Security Notes
-==============
+--------------
 
 Packages created using this utility encrypts the password as a salted SHA1 hash, which is how 10.5 and 10.6 normally stores it. Using a dictionary based attack they are reasonably easy to crack on modern machines, so make sure you pick a good, strong password. In 10.7 and up this is converted to PBKDF2 upon first login, which is much harder to crack, but the SHA1 hash can still be extracted from the package.
 
@@ -23,6 +29,8 @@ Credits
 Version History
 ---------------
 
+* 1.2.1
+    * Fixed empty password hash when you clicked Save without leaving the Password/Verify field.
 * 1.2
     * Added automatic login using kcpassword.
     * Package now adds users to admin group instead of using primary group 80 (thanks to Michael Lynn, Jason Bush, Greg Neagle). Primary group is always 20.
@@ -40,11 +48,6 @@ Version History
 * 1.0
     * Initial release.
 
-
-Home Page
----------
-
-CreateUserPkg is hosted on [GitHub](https://github.com/MagerValp/CreateUserPkg)
 
 License
 -------
