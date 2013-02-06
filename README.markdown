@@ -30,7 +30,7 @@ Version History
 ---------------
 
 * 1.2.1
-    * Fixed empty password hash when you clicked Save without leaving the Password/Verify field.
+    * Fixed empty password hash when you clicked Save without leaving the Password/Verify field (thanks to ih84ds).
 * 1.2
     * Added automatic login using kcpassword.
     * Package now adds users to admin group instead of using primary group 80 (thanks to Michael Lynn, Jason Bush, Greg Neagle). Primary group is always 20.
