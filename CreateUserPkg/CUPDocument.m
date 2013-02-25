@@ -278,7 +278,8 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     
     VALIDATE([self validateField:self.fullName       validator:validateNotEmpty       errorMsg:@"Please enter a full name"]);
     VALIDATE([self validateField:self.accountName    validator:validateNotEmpty       errorMsg:@"Please enter an account name"]);
-    VALIDATE([self validateField:self.password       validator:validateNotEmpty       errorMsg:@"Please enter a password"]);
+    //Commented the following line to allow for accounts with no password. use with caution!
+    //VALIDATE([self validateField:self.password       validator:validateNotEmpty       errorMsg:@"Please enter a password"]);
     VALIDATE([self validateField:self.verifyPassword validator:validateSameAsPassword errorMsg:@"Password verification doesn't match"]);
     VALIDATE([self validateField:self.userID         validator:validateNotEmpty       errorMsg:@"Please enter a user ID"]);
     VALIDATE([self validateField:self.homeDirectory  validator:validateHomeDir        errorMsg:@"Please enter a home directory path"]);
