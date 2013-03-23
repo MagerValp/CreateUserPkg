@@ -178,7 +178,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CUP;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "University of Gothenburg";
 			};
 			buildConfigurationList = 0596D172159AF27800B898B4 /* Build configuration list for PBXProject "CreateUserPkg" */;
@@ -306,6 +306,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -332,6 +336,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -350,13 +358,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CreateUserPkg/CreateUserPkg.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: University of Gothenburg";
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
 				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "56574830-E13E-4657-BCFA-3B7971A19A3A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -365,13 +373,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CreateUserPkg/CreateUserPkg.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: University of Gothenburg";
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
 				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "56574830-E13E-4657-BCFA-3B7971A19A3A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

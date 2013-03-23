@@ -1,3 +1,9 @@
+NoPass Mod
+==========
+
+(Very) Small change by [Dan Keller](https://github.com/dankeller/) to allow for accounts with no password. USE WITH CAUTION.
+
+
 Download
 ========
 
