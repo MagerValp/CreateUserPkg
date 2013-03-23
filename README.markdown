@@ -29,6 +29,8 @@ Credits
 Version History
 ---------------
 
+* 1.2.3
+    * Allow packages with empty password (thanks to Dan Keller).
 * 1.2.2
     * Fixed automatic logins that only worked on 2nd boot (thanks to Joseph Chilcote).
 * 1.2.1
