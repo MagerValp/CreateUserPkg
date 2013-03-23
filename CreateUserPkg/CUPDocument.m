@@ -278,7 +278,16 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     
     VALIDATE([self validateField:self.fullName       validator:validateNotEmpty       errorMsg:@"Please enter a full name"]);
     VALIDATE([self validateField:self.accountName    validator:validateNotEmpty       errorMsg:@"Please enter an account name"]);
-    VALIDATE([self validateField:self.password       validator:validateNotEmpty       errorMsg:@"Please enter a password"]);
+    if ([[self.password stringValue] length] == 0) {
+        if (NSRunAlertPanel(@"Are you sure you want to create a user with an empty password?",
+                            @"Anyone will be able to log in, even remotely, without being asked for a password.",
+                            @"Cancel",
+                            @"Use Empty Password",
+                            nil) == NSAlertDefaultReturn) {
+            [self.password becomeFirstResponder];
+            return NO;
+        }
+    }
     VALIDATE([self validateField:self.verifyPassword validator:validateSameAsPassword errorMsg:@"Password verification doesn't match"]);
     VALIDATE([self validateField:self.userID         validator:validateNotEmpty       errorMsg:@"Please enter a user ID"]);
     VALIDATE([self validateField:self.homeDirectory  validator:validateHomeDir        errorMsg:@"Please enter a home directory path"]);
