@@ -29,6 +29,8 @@ Credits
 Version History
 ---------------
 
+* 1.2.2
+    * Fixed automatic logins that only worked on 2nd boot (thanks to Joseph Chilcote).
 * 1.2.1
     * Fixed empty password hash when you clicked Save without leaving the Password/Verify field (thanks to ih84ds).
 * 1.2
