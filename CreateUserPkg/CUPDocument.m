@@ -434,7 +434,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     stderrData = [stderrFile readDataToEndOfFile];
     
     [task waitUntilExit];
-	NSInteger terminationStatus = [task terminationStatus];
+	int terminationStatus = [task terminationStatus];
     
     [task release];
     
@@ -462,7 +462,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
             NSLog(@"%@ stdout: %@", path, [[[NSString alloc] initWithData:stdoutData encoding:NSUTF8StringEncoding] autorelease]);
         }
         if (outError != NULL) {
-            *outError = [self cocoaError:NSFileReadUnknownError withReason:[NSString stringWithFormat:@"%@ exited with return code %ld", [path lastPathComponent], terminationStatus]];
+            *outError = [self cocoaError:NSFileReadUnknownError withReason:[NSString stringWithFormat:@"%@ exited with return code %d", [path lastPathComponent], terminationStatus]];
         }
         return nil;
     }
