@@ -29,6 +29,8 @@ Credits
 Version History
 ---------------
 
+* 1.2.4
+    * Fixed permissions for users to change their name, password, picture, etc (thanks to Greg Collen).
 * 1.2.3
     * Allow packages with empty password (thanks to Dan Keller).
 * 1.2.2
