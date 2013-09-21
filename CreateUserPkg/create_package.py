@@ -223,6 +223,12 @@ def main(argv):
     user_plist[u"realname"] = [input_data[u"fullName"]]
     user_plist[u"shell"] = [u"/bin/bash"]
     user_plist[u"uid"] = [input_data[u"userID"]]
+    user_plist[u"_writers_hint"] = [input_data[u"accountName"]]
+    user_plist[u"_writers_jpegphoto"] = [input_data[u"accountName"]]
+    user_plist[u"_writers_passwd"] = [input_data[u"accountName"]]
+    user_plist[u"_writers_picture"] = [input_data[u"accountName"]]
+    user_plist[u"_writers_realname"] = [input_data[u"accountName"]]
+    user_plist[u"_writers_UserCertificate"] = [input_data[u"accountName"]]
     if u"imagePath" in input_data:
         user_plist[u"picture"] = [input_data[u"imagePath"]]
     if u"imageData" in input_data:
