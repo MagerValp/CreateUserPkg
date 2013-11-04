@@ -387,8 +387,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CreateUserPkg/CreateUserPkg.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: University of Gothenburg (5KQ3D3FG5H)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application: University of Gothenburg (5KQ3D3FG5H)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
 				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
