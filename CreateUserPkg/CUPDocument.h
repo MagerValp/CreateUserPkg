@@ -12,46 +12,46 @@
 
 
 @interface CUPDocument : NSDocument {
-    NSWindow *docWindow;
+    NSWindow *__unsafe_unretained docWindow;
     
-    CUPImageSelector *_image;
-    NSTextField *_fullName;
-    NSTextField *_accountName;
-    NSSecureTextField *_password;
-    NSSecureTextField *_verifyPassword;
-    NSTextField *_userID;
-    NSPopUpButton *_accountType;
-    NSTextField *_homeDirectory;
-    NSTextField *_uuid;
-    NSButton *_automaticLogin;
+    CUPImageSelector *__unsafe_unretained _image;
+    NSTextField *__unsafe_unretained _fullName;
+    NSTextField *__unsafe_unretained _accountName;
+    NSSecureTextField *__unsafe_unretained _password;
+    NSSecureTextField *__unsafe_unretained _verifyPassword;
+    NSTextField *__unsafe_unretained _userID;
+    NSPopUpButton *__unsafe_unretained _accountType;
+    NSTextField *__unsafe_unretained _homeDirectory;
+    NSTextField *__unsafe_unretained _uuid;
+    NSButton *__unsafe_unretained _automaticLogin;
     
-    NSTextField *_packageID;
-    NSTextField *_version;
+    NSTextField *__unsafe_unretained _packageID;
+    NSTextField *__unsafe_unretained _version;
     
     NSMutableString *_shadowHash;
     NSData *_kcPassword;
     NSMutableDictionary *_docState;
 }
 
-@property (assign) IBOutlet NSWindow *docWindow;
+@property (unsafe_unretained) IBOutlet NSWindow *docWindow;
 
-@property (assign) IBOutlet NSTextField *fullName;
-@property (assign) IBOutlet NSTextField *accountName;
-@property (assign) IBOutlet CUPImageSelector *image;
-@property (assign) IBOutlet NSSecureTextField *password;
-@property (assign) IBOutlet NSSecureTextField *verifyPassword;
-@property (assign) IBOutlet NSTextField *userID;
-@property (assign) IBOutlet NSPopUpButton *accountType;
-@property (assign) IBOutlet NSTextField *homeDirectory;
-@property (assign) IBOutlet NSTextField *uuid;
-@property (assign) IBOutlet NSButton *automaticLogin;
+@property (unsafe_unretained) IBOutlet NSTextField *fullName;
+@property (unsafe_unretained) IBOutlet NSTextField *accountName;
+@property (unsafe_unretained) IBOutlet CUPImageSelector *image;
+@property (unsafe_unretained) IBOutlet NSSecureTextField *password;
+@property (unsafe_unretained) IBOutlet NSSecureTextField *verifyPassword;
+@property (unsafe_unretained) IBOutlet NSTextField *userID;
+@property (unsafe_unretained) IBOutlet NSPopUpButton *accountType;
+@property (unsafe_unretained) IBOutlet NSTextField *homeDirectory;
+@property (unsafe_unretained) IBOutlet NSTextField *uuid;
+@property (unsafe_unretained) IBOutlet NSButton *automaticLogin;
 
-@property (assign) IBOutlet NSTextField *packageID;
-@property (assign) IBOutlet NSTextField *version;
+@property (unsafe_unretained) IBOutlet NSTextField *packageID;
+@property (unsafe_unretained) IBOutlet NSTextField *version;
 
-@property (retain) NSMutableString *shadowHash;
-@property (retain) NSData *kcPassword;
-@property (retain) NSMutableDictionary *docState;
+@property (strong) NSMutableString *shadowHash;
+@property (strong) NSData *kcPassword;
+@property (strong) NSMutableDictionary *docState;
 
 - (IBAction)didLeaveFullName:(id)sender;
 - (IBAction)didLeaveAccountName:(id)sender;

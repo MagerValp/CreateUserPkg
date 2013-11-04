@@ -16,16 +16,11 @@
 {
     self = [super init];
     if (self) {
-        self.bestHost = [NSArray arrayWithObjects:@"host", @"example", @"com", nil];
+        self.bestHost = @[@"host", @"example", @"com"];
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [_bestHost release];
-    [super dealloc];
-}
 
 + (CUPBestHostFinder *)bestHostFinder
 {
