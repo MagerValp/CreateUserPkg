@@ -12,7 +12,7 @@
 
 @synthesize bestHost = _bestHost;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
