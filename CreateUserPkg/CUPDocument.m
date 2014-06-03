@@ -310,7 +310,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     if (self.image.imagePath != nil) {
         (self.docState)[@"imagePath"] = self.image.imagePath;
     }
-    (self.docState)[@"isAdmin"] = [NSNumber numberWithBool:[self.accountType indexOfSelectedItem] == ACCOUNT_TYPE_ADMIN];
+    (self.docState)[@"isAdmin"] = [NSNumber numberWithBool:([self.accountType indexOfSelectedItem] == ACCOUNT_TYPE_ADMIN)];
     
     return YES;
 }
