@@ -12,7 +12,7 @@
     NSArray *_bestHost;
 }
 
-@property (atomic, retain) NSArray *bestHost;
+@property (atomic, strong) NSArray *bestHost;
 
 + (CUPBestHostFinder *)bestHostFinder;
 - (void)findBestHost;

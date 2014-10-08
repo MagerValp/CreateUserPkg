@@ -14,11 +14,11 @@
 @synthesize imagePath = _imagePath;
 
 
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSTIFFPboardType, NSURLPboardType, nil]];
+        [self registerForDraggedTypes:@[NSTIFFPboardType, NSURLPboardType]];
         self.imageData = nil;
         self.imagePath = nil;
     }
@@ -26,12 +26,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.imageData = nil;
-    self.imagePath = nil;
-    [super dealloc];
-}
 
 - (BOOL)saveJpegData:(NSData *)data
 {
@@ -63,7 +57,6 @@
     if (self.imageData) {
         NSImage *image = [[NSImage alloc] initWithData:self.imageData];
         [self setImage:image];
-        [image release];
     }
     [self setNeedsDisplay:YES];
 }
@@ -80,7 +73,7 @@
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
     NSPasteboard *pboard = [sender draggingPasteboard];
-    NSString *droppedType = [pboard availableTypeFromArray:[NSArray arrayWithObjects:NSTIFFPboardType, NSURLPboardType, nil]];
+    NSString *droppedType = [pboard availableTypeFromArray:@[NSTIFFPboardType, NSURLPboardType]];
     
     if ([droppedType isEqualToString:NSTIFFPboardType]) {
         NSData *droppedData = [pboard dataForType:droppedType];

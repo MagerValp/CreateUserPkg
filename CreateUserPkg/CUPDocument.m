@@ -35,7 +35,7 @@
 @synthesize docState = _docState;
 
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -46,17 +46,10 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.docState = nil;
-    self.shadowHash = nil;
-    self.kcPassword = nil;
-    [super dealloc];
-}
 
 - (NSError *)cocoaError:(NSInteger)code withReason:(NSString *)reason
 {
-    return [NSError errorWithDomain:NSCocoaErrorDomain code:code userInfo:[NSDictionary dictionaryWithObject:reason forKey:NSLocalizedFailureReasonErrorKey]];
+    return [NSError errorWithDomain:NSCocoaErrorDomain code:code userInfo:@{NSLocalizedFailureReasonErrorKey: reason}];
 }
 
 - (NSString *)windowNibName
@@ -77,7 +70,6 @@
         NSData *asciiData = [lcString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
         NSString *asciiString = [[NSString alloc] initWithData:asciiData encoding:NSASCIIStringEncoding];
         [self.accountName setStringValue:asciiString];
-        [asciiString release];
     }
 }
 
@@ -162,7 +154,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
 
 - (void)setTextField:(NSTextField *)field withKey:(NSString *)key
 {
-    NSString *value = [self.docState objectForKey:key];
+    NSString *value = (self.docState)[key];
     if (key != nil && value != nil) {
         [field setStringValue:value];
     }
@@ -177,18 +169,14 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     // Initialize form with default values.
     CUPUIDFormatter *uidFormatter = [[CUPUIDFormatter alloc] init];
     [self.userID setFormatter:uidFormatter];
-    [uidFormatter release];
     [self.userID setStringValue:@"499"];
     CUPUserNameFormatter *userNameFormatter = [[CUPUserNameFormatter alloc] init];
     [self.accountName setFormatter:userNameFormatter];
-    [userNameFormatter release];
     CUPUUIDFormatter *uuidFormatter = [[CUPUUIDFormatter alloc] init];
     [self.uuid setFormatter:uuidFormatter];
-    [uuidFormatter release];
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    NSString *uuidString = (NSString *)CFUUIDCreateString(NULL, theUUID);
+    NSString *uuidString = (NSString *)CFBridgingRelease(CFUUIDCreateString(NULL, theUUID));
     [self.uuid setStringValue:uuidString];
-    [uuidString release];
     CFRelease(theUUID);
     [self.version setStringValue:@"1.0"];
     
@@ -202,12 +190,12 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     UPDATE_TEXT_FIELD(uuid);
     UPDATE_TEXT_FIELD(packageID);
     UPDATE_TEXT_FIELD(version);
-    if ([self.docState objectForKey:@"shadowHash"] != nil) {
+    if ((self.docState)[@"shadowHash"] != nil) {
         [self.password setStringValue:CUP_PASSWORD_PLACEHOLDER];
         [self.verifyPassword setStringValue:CUP_PASSWORD_PLACEHOLDER];
     }
     [self.automaticLogin setEnabled:YES];
-    if ([self.docState objectForKey:@"kcPassword"] != nil) {
+    if ((self.docState)[@"kcPassword"] != nil) {
         [self.automaticLogin setState:NSOnState];
     } else {
         [self.automaticLogin setState:NSOffState];
@@ -215,11 +203,11 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
             [self.automaticLogin setEnabled:NO];
         }
     }
-    self.image.imageData = [self.docState objectForKey:@"imageData"];
-    self.image.imagePath = [self.docState objectForKey:@"imagePath"];
+    self.image.imageData = (self.docState)[@"imageData"];
+    self.image.imagePath = (self.docState)[@"imagePath"];
     [self.image displayImageData];
-    if ([self.docState objectForKey:@"isAdmin"] != nil) {
-        [self.accountType selectItemAtIndex:[[self.docState objectForKey:@"isAdmin"] boolValue] ? ACCOUNT_TYPE_ADMIN : ACCOUNT_TYPE_STANDARD];
+    if ((self.docState)[@"isAdmin"] != nil) {
+        [self.accountType selectItemAtIndex:[(self.docState)[@"isAdmin"] boolValue] ? ACCOUNT_TYPE_ADMIN : ACCOUNT_TYPE_STANDARD];
     } else {
         [self.accountType selectItemAtIndex:ACCOUNT_TYPE_ADMIN];
     }
@@ -307,22 +295,22 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
             NSLog(@"shadowHash is empty, calculating new hash");
             [self calculateShadowHash:[self.password stringValue]];
         }
-        [self.docState setObject:[NSString stringWithString:self.shadowHash] forKey:@"shadowHash"];
+        (self.docState)[@"shadowHash"] = [NSString stringWithString:self.shadowHash];
     }
     if ([self.automaticLogin state] == NSOnState) {
         if ([self.kcPassword length] == 0) {
             NSLog(@"kcPassword is empty, calculating new hash");
             [self calculateKCPassword:[self.password stringValue]];
         }
-        [self.docState setObject:self.kcPassword forKey:@"kcPassword"];
+        (self.docState)[@"kcPassword"] = self.kcPassword;
     }
     if (self.image.imageData != nil) {
-        [self.docState setObject:self.image.imageData forKey:@"imageData"];
+        (self.docState)[@"imageData"] = self.image.imageData;
     }
     if (self.image.imagePath != nil) {
-        [self.docState setObject:self.image.imagePath forKey:@"imagePath"];
+        (self.docState)[@"imagePath"] = self.image.imagePath;
     }
-    [self.docState setObject:[NSNumber numberWithBool:[self.accountType indexOfSelectedItem] == ACCOUNT_TYPE_ADMIN] forKey:@"isAdmin"];
+    (self.docState)[@"isAdmin"] = [NSNumber numberWithBool:([self.accountType indexOfSelectedItem] == ACCOUNT_TYPE_ADMIN)];
     
     return YES;
 }
@@ -349,16 +337,15 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     if (result == nil) {
         return nil;
     }
-    data = [result objectForKey:@"data"];
-    [result release];
+    data = result[@"data"];
     return data;
 }
 
 - (void)setDocStateKey:(NSString *)key fromDict:(NSDictionary *)dict
 {
-    NSString *value = [dict objectForKey:key];
+    NSString *value = dict[key];
     if (value != nil) {
-        [self.docState setObject:value forKey:key];
+        (self.docState)[key] = value;
     }
 }
 
@@ -366,7 +353,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
 {
     NSDictionary *document;
     NSString *tmp_plist = [NSTemporaryDirectory() stringByAppendingFormat:@"%08x.pkg", arc4random()];
-    NSDictionary *args = [NSDictionary dictionaryWithObject:tmp_plist forKey:@"input"];
+    NSDictionary *args = @{@"input": tmp_plist};
     
     [data writeToFile:tmp_plist atomically:NO];
     
@@ -391,9 +378,8 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [self setDocStateKey:@"imagePath"       fromDict:document];
     [self setDocStateKey:@"kcPassword"      fromDict:document];
     
-    self.kcPassword = [document objectForKey:@"kcPassword"];
+    self.kcPassword = document[@"kcPassword"];
     
-    [document release];
     return YES;
 }
 
@@ -445,10 +431,9 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [task waitUntilExit];
 	int terminationStatus = [task terminationStatus];
     
-    [task release];
     
     if ([stderrData length] != 0) {
-        NSLog(@"%@ stderr: %@", path, [[[NSString alloc] initWithData:stderrData encoding:NSUTF8StringEncoding] autorelease]);
+        NSLog(@"%@ stderr: %@", path, [[NSString alloc] initWithData:stderrData encoding:NSUTF8StringEncoding]);
     }
     
     if (terminationStatus == 0) {
@@ -458,17 +443,17 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
                                                   errorDescription:&errorMsg];
         if (result == nil) {
             if ([stdoutData length] != 0) {
-                NSLog(@"%@ stdout: %@", path, [[[NSString alloc] initWithData:stdoutData encoding:NSUTF8StringEncoding] autorelease]);
+                NSLog(@"%@ stdout: %@", path, [[NSString alloc] initWithData:stdoutData encoding:NSUTF8StringEncoding]);
             }
             if (outError != NULL) {
                 *outError = [self cocoaError:NSFileReadUnknownError withReason:[NSString stringWithFormat:@"Couldn't read output from %@: %@", [path lastPathComponent], errorMsg]];
             }
             return nil;
         }
-        return [result retain];
+        return result;
     } else {
         if ([stdoutData length] != 0) {
-            NSLog(@"%@ stdout: %@", path, [[[NSString alloc] initWithData:stdoutData encoding:NSUTF8StringEncoding] autorelease]);
+            NSLog(@"%@ stdout: %@", path, [[NSString alloc] initWithData:stdoutData encoding:NSUTF8StringEncoding]);
         }
         if (outError != NULL) {
             *outError = [self cocoaError:NSFileReadUnknownError withReason:[NSString stringWithFormat:@"%@ exited with return code %d", [path lastPathComponent], terminationStatus]];

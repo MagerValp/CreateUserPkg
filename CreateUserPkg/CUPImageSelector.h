@@ -13,8 +13,8 @@
     NSString *_imagePath;
 }
 
-@property (retain) NSData *imageData;
-@property (retain) NSString *imagePath;
+@property (strong) NSData *imageData;
+@property (strong) NSString *imagePath;
 
 - (BOOL)saveJpegData:(NSData *)data;
 - (void)saveUserPicturesPath:(NSURL *)url;
