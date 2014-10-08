@@ -169,7 +169,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     // Initialize form with default values.
     CUPUIDFormatter *uidFormatter = [[CUPUIDFormatter alloc] init];
     [self.userID setFormatter:uidFormatter];
-    [self.userID setStringValue:@"499"];
+    [self.userID setStringValue:@"899"];
     CUPUserNameFormatter *userNameFormatter = [[CUPUserNameFormatter alloc] init];
     [self.accountName setFormatter:userNameFormatter];
     CUPUUIDFormatter *uuidFormatter = [[CUPUUIDFormatter alloc] init];
