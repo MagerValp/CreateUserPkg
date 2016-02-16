@@ -85,6 +85,10 @@ PI_ENABLE_AUTOLOGIN = """
 /bin/chmod 644 "$3/Library/Preferences/com.apple.loginwindow.plist"
 """
 
+PI_CREATEHOMEDIR = """
+    /usr/sbin/createhomedir -b -u "_USERNAME_"
+"""
+
 PI_LIVE_KILLDS = """
     # kill local directory service so it will see our local
     # file changes -- it will automatically restart
@@ -245,7 +249,8 @@ def main(argv):
     else:
         kcpassword = None
     is_admin = input_data.get(u"isAdmin", False)
-    
+    create_homedir = input_data.get(u"createHomeDirectory", False)
+
     # Create a package with the plist for our user and a shadow hash file.
     tmp_path = tempfile.mkdtemp()
     try:
@@ -288,11 +293,13 @@ def main(argv):
         # Create postinstall script.
         pi_reqs = set()
         pi_actions = set()
-        pi_live_actions = set()
-        pi_live_actions.add(PI_LIVE_KILLDS)
+        pi_live_actions = []
+        pi_live_actions.append(PI_LIVE_KILLDS)
         if is_admin:
             pi_actions.add(PI_ADD_ADMIN_GROUPS)
             pi_reqs.add(PI_REQ_PLIST_FUNCS)
+        if create_homedir:
+            pi_live_actions.append(PI_CREATEHOMEDIR)
         if kcpassword:
             pi_actions.add(PI_ENABLE_AUTOLOGIN)
         postinstall = POSTINSTALL_TEMPLATE
