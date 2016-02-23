@@ -86,7 +86,8 @@ PI_ENABLE_AUTOLOGIN = """
 """
 
 PI_CREATEHOMEDIR = """
-    /usr/sbin/createhomedir -b -u "_USERNAME_"
+/bin/cp -Rp "$3/System/Library/User Template/English.lproj" "$3/Users/_USERNAME_"
+/usr/sbin/chown -R _UID_:staff "$3/Users/_USERNAME_"
 """
 
 PI_LIVE_KILLDS = """
@@ -292,22 +293,23 @@ def main(argv):
         os.makedirs(scripts_path, 0755)
         # Create postinstall script.
         pi_reqs = set()
-        pi_actions = set()
-        pi_live_actions = []
-        pi_live_actions.append(PI_LIVE_KILLDS)
+        pi_actions = []
+        pi_live_actions = set()
+        pi_live_actions.add(PI_LIVE_KILLDS)
         if is_admin:
-            pi_actions.add(PI_ADD_ADMIN_GROUPS)
+            pi_actions.append(PI_ADD_ADMIN_GROUPS)
             pi_reqs.add(PI_REQ_PLIST_FUNCS)
         if create_homedir:
-            pi_live_actions.append(PI_CREATEHOMEDIR)
+            pi_actions.append(PI_CREATEHOMEDIR)
         if kcpassword:
-            pi_actions.add(PI_ENABLE_AUTOLOGIN)
+            pi_actions.append(PI_ENABLE_AUTOLOGIN)
         postinstall = POSTINSTALL_TEMPLATE
         postinstall = postinstall.replace("_POSTINSTALL_REQUIREMENTS_", "\n".join(pi_reqs))
         postinstall = postinstall.replace("_POSTINSTALL_ACTIONS_",      "\n".join(pi_actions))
         postinstall = postinstall.replace("_POSTINSTALL_LIVE_ACTIONS_", "\n".join(pi_live_actions))
         postinstall = postinstall.replace("_USERNAME_", utf8_username)
         postinstall = postinstall.replace("_UUID_", input_data[u"uuid"])
+        postinstall = postinstall.replace("_UID_", input_data[u"userID"])
         postinstall_path = os.path.join(scripts_path, "postinstall")
         f = open(postinstall_path, "w")
         f.write(postinstall)

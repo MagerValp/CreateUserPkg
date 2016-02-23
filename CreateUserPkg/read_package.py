@@ -97,7 +97,7 @@ def main(argv):
             pass
         if "ACCOUNT_TYPE=ADMIN" in postinstall:
             is_admin = True
-        if "createhomedir" in postinstall:
+        if "User Template" in postinstall:
             create_homedir = True
         else:
             create_homedir = False
