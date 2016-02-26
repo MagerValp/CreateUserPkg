@@ -86,8 +86,8 @@ PI_ENABLE_AUTOLOGIN = """
 """
 
 PI_CREATEHOMEDIR = """
-/bin/cp -Rp "$3/System/Library/User Template/English.lproj" "$3/Users/_USERNAME_"
-/usr/sbin/chown -R _UID_:staff "$3/Users/_USERNAME_"
+/bin/cp -Rp "$3/System/Library/User Template/English.lproj" "$3/_HOMEDIR_"
+/usr/sbin/chown -R _UID_:staff "$3/_HOMEDIR_"
 """
 
 PI_LIVE_KILLDS = """
@@ -310,6 +310,7 @@ def main(argv):
         postinstall = postinstall.replace("_USERNAME_", utf8_username)
         postinstall = postinstall.replace("_UUID_", input_data[u"uuid"])
         postinstall = postinstall.replace("_UID_", input_data[u"userID"])
+        postinstall = postinstall.replace("_HOMEDIR_", input_data[u"homeDirectory"])
         postinstall_path = os.path.join(scripts_path, "postinstall")
         f = open(postinstall_path, "w")
         f.write(postinstall)
