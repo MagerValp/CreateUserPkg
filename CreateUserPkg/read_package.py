@@ -97,12 +97,17 @@ def main(argv):
             pass
         if "ACCOUNT_TYPE=ADMIN" in postinstall:
             is_admin = True
+        if "User Template" in postinstall:
+            create_homedir = True
+        else:
+            create_homedir = False
         # Write the extracted document data to stdout as a plist.
         output_data = {
             u"fullName":         user[u"realname"][0],
             u"accountName":      user[u"name"][0],
             u"userID":           user[u"uid"][0],
             u"isAdmin":          is_admin,
+            u"createHomeDirectory": create_homedir,
             u"homeDirectory":    user[u"home"][0],
             u"uuid":             user[u"generateduid"][0],
             u"packageID":        pkg_info.get("identifier"),

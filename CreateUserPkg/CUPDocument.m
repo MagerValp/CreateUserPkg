@@ -26,6 +26,7 @@
 @synthesize homeDirectory = _homeDirectory;
 @synthesize uuid = _uuid;
 @synthesize automaticLogin = _automaticLogin;
+@synthesize createHomeDirectory = _createHomeDirectory;
 
 @synthesize packageID = _packageID;
 @synthesize version = _version;
@@ -190,6 +191,11 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     UPDATE_TEXT_FIELD(uuid);
     UPDATE_TEXT_FIELD(packageID);
     UPDATE_TEXT_FIELD(version);
+    if ([(self.docState)[@"createHomeDirectory"] boolValue]) {
+        [self.createHomeDirectory setState:NSOnState];
+    } else {
+        [self.createHomeDirectory setState:NSOffState];
+    }
     if ((self.docState)[@"shadowHash"] != nil) {
         [self.password setStringValue:CUP_PASSWORD_PLACEHOLDER];
         [self.verifyPassword setStringValue:CUP_PASSWORD_PLACEHOLDER];
@@ -311,6 +317,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
         (self.docState)[@"imagePath"] = self.image.imagePath;
     }
     (self.docState)[@"isAdmin"] = [NSNumber numberWithBool:([self.accountType indexOfSelectedItem] == ACCOUNT_TYPE_ADMIN)];
+    (self.docState)[@"createHomeDirectory"] = [NSNumber numberWithBool:([self.createHomeDirectory state])];
     
     return YES;
 }
@@ -370,6 +377,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [self setDocStateKey:@"userID"          fromDict:document];
     [self setDocStateKey:@"isAdmin"         fromDict:document];
     [self setDocStateKey:@"homeDirectory"   fromDict:document];
+    [self setDocStateKey:@"createHomeDirectory"   fromDict:document];
     [self setDocStateKey:@"uuid"            fromDict:document];
     [self setDocStateKey:@"packageID"       fromDict:document];
     [self setDocStateKey:@"version"         fromDict:document];
