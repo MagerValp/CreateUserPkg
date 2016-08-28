@@ -33,7 +33,7 @@
     if (imgrep == nil) {
         return NO;
     }
-    self.imageData = [imgrep representationUsingType:NSJPEGFileType properties:nil];
+    self.imageData = [imgrep representationUsingType:NSJPEGFileType properties:@{}];
     if (self.imageData == nil) {
         return NO;
     }
