@@ -81,7 +81,12 @@ PlistArrayAdd "$3/private/var/db/dslocal/nodes/Default/groups/admin.plist" users
 """
 
 PI_ENABLE_AUTOLOGIN = """
-/usr/bin/defaults write "$3/Library/Preferences/com.apple.loginwindow" autoLoginUser "_USERNAME_"
+if [ "$3" == "/" ] ; then
+    # work around path issue with 'defaults'
+    /usr/bin/defaults write "/Library/Preferences/com.apple.loginwindow" autoLoginUser "_USERNAME_"
+else
+    /usr/bin/defaults write "$3/Library/Preferences/com.apple.loginwindow" autoLoginUser "_USERNAME_"
+fi
 /bin/chmod 644 "$3/Library/Preferences/com.apple.loginwindow.plist"
 """
 
