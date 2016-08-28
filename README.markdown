@@ -29,6 +29,8 @@ Credits
 Version History
 ---------------
 
+* 1.2.5
+    * Fixed automatic login on 10.9+ (thanks to Greg Neagle).
 * 1.2.4
     * Fixed permissions for users to change their name, password, picture, etc (thanks to Greg Collen).
 * 1.2.3
