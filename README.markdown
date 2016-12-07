@@ -1,3 +1,8 @@
+This project is no longer maintained
+====================================
+
+Please see the [blog post](https://magervalp.github.io/2016/12/07/createuserpkg-up-for-adoption.html).
+
 Download
 ========
 
