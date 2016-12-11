@@ -90,6 +90,11 @@ fi
 /bin/chmod 644 "$3/Library/Preferences/com.apple.loginwindow.plist"
 """
 
+PI_CREATEHOMEDIR = """
+/bin/cp -Rp "$3/System/Library/User Template/English.lproj" "$3/_HOMEDIR_"
+/usr/sbin/chown -R _UID_:staff "$3/_HOMEDIR_"
+"""
+
 PI_LIVE_KILLDS = """
     # kill local directory service so it will see our local
     # file changes -- it will automatically restart
@@ -250,7 +255,8 @@ def main(argv):
     else:
         kcpassword = None
     is_admin = input_data.get(u"isAdmin", False)
-    
+    create_homedir = input_data.get(u"createHomeDirectory", False)
+
     # Create a package with the plist for our user and a shadow hash file.
     tmp_path = tempfile.mkdtemp()
     try:
@@ -292,20 +298,24 @@ def main(argv):
         os.makedirs(scripts_path, 0755)
         # Create postinstall script.
         pi_reqs = set()
-        pi_actions = set()
+        pi_actions = []
         pi_live_actions = set()
         pi_live_actions.add(PI_LIVE_KILLDS)
         if is_admin:
-            pi_actions.add(PI_ADD_ADMIN_GROUPS)
+            pi_actions.append(PI_ADD_ADMIN_GROUPS)
             pi_reqs.add(PI_REQ_PLIST_FUNCS)
+        if create_homedir:
+            pi_actions.append(PI_CREATEHOMEDIR)
         if kcpassword:
-            pi_actions.add(PI_ENABLE_AUTOLOGIN)
+            pi_actions.append(PI_ENABLE_AUTOLOGIN)
         postinstall = POSTINSTALL_TEMPLATE
         postinstall = postinstall.replace("_POSTINSTALL_REQUIREMENTS_", "\n".join(pi_reqs))
         postinstall = postinstall.replace("_POSTINSTALL_ACTIONS_",      "\n".join(pi_actions))
         postinstall = postinstall.replace("_POSTINSTALL_LIVE_ACTIONS_", "\n".join(pi_live_actions))
         postinstall = postinstall.replace("_USERNAME_", utf8_username)
         postinstall = postinstall.replace("_UUID_", input_data[u"uuid"])
+        postinstall = postinstall.replace("_UID_", input_data[u"userID"])
+        postinstall = postinstall.replace("_HOMEDIR_", input_data[u"homeDirectory"])
         postinstall_path = os.path.join(scripts_path, "postinstall")
         f = open(postinstall_path, "w")
         f.write(postinstall)

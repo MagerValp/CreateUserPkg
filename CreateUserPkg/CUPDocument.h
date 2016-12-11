@@ -22,6 +22,7 @@
     NSTextField *__unsafe_unretained _userID;
     NSPopUpButton *__unsafe_unretained _accountType;
     NSTextField *__unsafe_unretained _homeDirectory;
+    NSButton *__unsafe_unretained _createHomeDirectory;
     NSTextField *__unsafe_unretained _uuid;
     NSButton *__unsafe_unretained _automaticLogin;
     
@@ -43,6 +44,7 @@
 @property (unsafe_unretained) IBOutlet NSTextField *userID;
 @property (unsafe_unretained) IBOutlet NSPopUpButton *accountType;
 @property (unsafe_unretained) IBOutlet NSTextField *homeDirectory;
+@property (unsafe_unretained) IBOutlet NSButton *createHomeDirectory;
 @property (unsafe_unretained) IBOutlet NSTextField *uuid;
 @property (unsafe_unretained) IBOutlet NSButton *automaticLogin;
 
