@@ -1,7 +1,7 @@
 This project is no longer maintained
 ====================================
 
-Please see the [blog post](https://magervalp.github.io/2016/12/07/createuserpkg-up-for-adoption.html).
+Please see the [blog post](https://magervalp.github.io/2016/12/07/createuserpkg-up-for-adoption.html). 10.13 doesn't appear to support SHA1 passwords anymore, and this project needs to be updated to create PBKDF2 passwords (see Security Notes below).
 
 Download
 ========
