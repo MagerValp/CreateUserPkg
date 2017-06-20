@@ -107,27 +107,34 @@
 {
     unsigned char salt[32];
     int status = SecRandomCopyBytes(kSecRandomDefault, 32, salt);
-    unsigned char key[128];
-    unsigned int rounds = 400000;
-    CCKeyDerivationPBKDF(kCCPBKDF2,
-                         [pwd UTF8String],
-                         (CC_LONG)[pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                         salt, 32,
-                         kCCPRFHmacAlgSHA512, rounds, key, 128);
-    NSDictionary *dictionary = @{
-        @"SALTED-SHA512-PBKDF2" : @{
-                @"entropy" : [NSData dataWithBytes: key length: 128],
-                @"iterations" : [NSNumber numberWithUnsignedInt: rounds],
-                @"salt" : [NSData dataWithBytes: salt length: 32]
-                }
-    };
-    NSError * _Nullable __autoreleasing * error = NULL;
-    NSData *plistData = [NSPropertyListSerialization dataWithPropertyList: dictionary
-                                                                   format: NSPropertyListBinaryFormat_v1_0
-                                                                  options: 0
-                                                                    error: error];
-    self.shadowHashData = plistData;
-    //NSLog(@"ShadowHashData: %@", plistData);
+    if (status == 0) {
+        unsigned char key[128];
+        // calculate the number of iterations to use
+        unsigned int rounds = CCCalibratePBKDF(kCCPBKDF2,
+                                               [pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                               32, kCCPRFHmacAlgSHA512, 128, 100);
+        // derive our SALTED-SHA512-PBKDF2 key
+        CCKeyDerivationPBKDF(kCCPBKDF2,
+                             [pwd UTF8String],
+                             (CC_LONG)[pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                             salt, 32,
+                             kCCPRFHmacAlgSHA512, rounds, key, 128);
+        // Make a dictionary containing the needed fields
+        NSDictionary *dictionary = @{
+            @"SALTED-SHA512-PBKDF2" : @{
+                    @"entropy" : [NSData dataWithBytes: key length: 128],
+                    @"iterations" : [NSNumber numberWithUnsignedInt: rounds],
+                    @"salt" : [NSData dataWithBytes: salt length: 32]
+                    }
+        };
+        // convert to binary plist data
+        NSError *error = NULL;
+        NSData *plistData = [NSPropertyListSerialization dataWithPropertyList: dictionary
+                                                                       format: NSPropertyListBinaryFormat_v1_0
+                                                                      options: 0
+                                                                        error: &error];
+        self.shadowHashData = plistData;
+    }
 }
 
 
