@@ -1,24 +1,13 @@
-This project is no longer maintained
-====================================
-
-Please see the [blog post](https://magervalp.github.io/2016/12/07/createuserpkg-up-for-adoption.html). 10.13 doesn't appear to support SHA1 passwords anymore, and this project needs to be updated to create PBKDF2 passwords (see Security Notes below).
-
-Download
-========
-
-Download CreateUserPkg from the project homepage at [http://magervalp.github.com/CreateUserPkg/](http://magervalp.github.com/CreateUserPkg/)
-
-
 Overview
 ========
 
-This utility creates packages that create local user accounts when installed. The packages can create users on 10.5+, and they are compatible with all workflows that can install standard installer pkgs. For the details on how the packages work, see Greg Neagle's article in the [May 2012 issue of MacTech](http://www.mactech.com/issue-TOCs-2012).
+This utility creates packages that create local user accounts when installed. The packages can create users on 10.8+, and they are compatible with all workflows that can install standard installer pkgs. For the details on how the packages work, see Greg Neagle's article in the [May 2012 issue of MacTech](http://www.mactech.com/issue-TOCs-2012).
 
 
 Security Notes
 --------------
 
-Packages created using this utility encrypts the password as a salted SHA1 hash, which is how 10.5 and 10.6 normally stores it. Using a dictionary based attack they are reasonably easy to crack on modern machines, so make sure you pick a good, strong password. In 10.7 and up this is converted to PBKDF2 upon first login, which is much harder to crack, but the SHA1 hash can still be extracted from the package.
+Packages created using this utility install a user account plist with ShadowHashData contaning a "SALTED-SHA512-PBKDF2" key derived from the provided password. This is the standard mechanism for storing user authentication data in macOS 10.8+.
 
 If you enable automatic login the password is stored in a kcpassword file, which is merely obfuscated and not encrypted - extracting the password (no matter how strong) is trivial.
 
