@@ -24,6 +24,7 @@
 		6605E696159B964D0048362A /* CUPUserNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E692159B964D0048362A /* CUPUserNameFormatter.m */; };
 		6605E697159B964D0048362A /* CUPUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605E694159B964D0048362A /* CUPUUIDFormatter.m */; };
 		66B221D8159C4C30003FDF4E /* CreateUserPkg.icns in Resources */ = {isa = PBXBuildFile; fileRef = 66B221D7159C4C30003FDF4E /* CreateUserPkg.icns */; };
+		C09EAB201EF8EDFE005A8859 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C09EAB1F1EF8EDFE005A8859 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		6605E693159B964D0048362A /* CUPUUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUPUUIDFormatter.h; sourceTree = "<group>"; };
 		6605E694159B964D0048362A /* CUPUUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUPUUIDFormatter.m; sourceTree = "<group>"; };
 		66B221D7159C4C30003FDF4E /* CreateUserPkg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CreateUserPkg.icns; sourceTree = "<group>"; };
+		C09EAB1F1EF8EDFE005A8859 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = ../../../../System/Library/Frameworks/Security.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C09EAB201EF8EDFE005A8859 /* Security.framework in Frameworks */,
 				0596D17D159AF27800B898B4 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +105,7 @@
 		0596D17E159AF27800B898B4 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C09EAB1F1EF8EDFE005A8859 /* Security.framework */,
 				0596D17F159AF27800B898B4 /* AppKit.framework */,
 				0596D180159AF27800B898B4 /* CoreData.framework */,
 				0596D181159AF27800B898B4 /* Foundation.framework */,
@@ -180,11 +184,6 @@
 				CLASSPREFIX = CUP;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "University of Gothenburg";
-				TargetAttributes = {
-					0596D177159AF27800B898B4 = {
-						DevelopmentTeam = 5KQ3D3FG5H;
-					};
-				};
 			};
 			buildConfigurationList = 0596D172159AF27800B898B4 /* Build configuration list for PBXProject "CreateUserPkg" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -377,13 +376,14 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = CreateUserPkg/CreateUserPkg.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
 				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.gu.it.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -396,13 +396,14 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = CreateUserPkg/CreateUserPkg.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreateUserPkg/CreateUserPkg-Prefix.pch";
 				INFOPLIST_FILE = "CreateUserPkg/CreateUserPkg-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.gu.it.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -7,6 +7,8 @@
 //
 
 #import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonKeyDerivation.h>
+#import <Security/Security.h>
 #import "CUPDocument.h"
 #import "CUPUIDFormatter.h"
 #import "CUPUserNameFormatter.h"
@@ -31,6 +33,7 @@
 @synthesize version = _version;
 
 @synthesize shadowHash = _shadowHash;
+@synthesize shadowHashData = _shadowHashData;
 @synthesize kcPassword = _kcPassword;
 @synthesize docState = _docState;
 
@@ -99,8 +102,38 @@
     }
 }
 
+
+- (void)calculateShadowHashData:(NSString *)pwd
+{
+    unsigned char salt[32];
+    int status = SecRandomCopyBytes(kSecRandomDefault, 32, salt);
+    unsigned char key[128];
+    unsigned int rounds = 400000;
+    CCKeyDerivationPBKDF(kCCPBKDF2,
+                         [pwd UTF8String],
+                         (CC_LONG)[pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                         salt, 32,
+                         kCCPRFHmacAlgSHA512, rounds, key, 128);
+    NSDictionary *dictionary = @{
+        @"SALTED-SHA512-PBKDF2" : @{
+                @"entropy" : [NSData dataWithBytes: key length: 128],
+                @"iterations" : [NSNumber numberWithUnsignedInt: rounds],
+                @"salt" : [NSData dataWithBytes: salt length: 32]
+                }
+    };
+    NSError * _Nullable __autoreleasing * error = NULL;
+    NSData *plistData = [NSPropertyListSerialization dataWithPropertyList: dictionary
+                                                                   format: NSPropertyListBinaryFormat_v1_0
+                                                                  options: 0
+                                                                    error: error];
+    self.shadowHashData = plistData;
+    //NSLog(@"ShadowHashData: %@", plistData);
+}
+
+
 - (void)calculateShadowHash:(NSString *)pwd
 {
+    [self calculateShadowHashData:pwd];
     CC_SHA1_CTX ctx;
     unsigned char salted_sha1_hash[24];
     union _salt {
@@ -296,6 +329,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
             [self calculateShadowHash:[self.password stringValue]];
         }
         (self.docState)[@"shadowHash"] = [NSString stringWithString:self.shadowHash];
+        (self.docState)[@"shadowHashData"] = self.shadowHashData;
     }
     if ([self.automaticLogin state] == NSOnState) {
         if ([self.kcPassword length] == 0) {
@@ -374,6 +408,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [self setDocStateKey:@"packageID"       fromDict:document];
     [self setDocStateKey:@"version"         fromDict:document];
     [self setDocStateKey:@"shadowHash"      fromDict:document];
+    [self setDocStateKey:@"shadowHashData"  fromDict:document];
     [self setDocStateKey:@"imageData"       fromDict:document];
     [self setDocStateKey:@"imagePath"       fromDict:document];
     [self setDocStateKey:@"kcPassword"      fromDict:document];

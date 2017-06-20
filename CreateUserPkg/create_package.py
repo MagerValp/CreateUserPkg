@@ -21,7 +21,7 @@ import gzip
 REQUIRED_KEYS = set((
     u"fullName",
     u"accountName",
-    u"shadowHash",
+    u"shadowHashData",
     u"userID",
     u"isAdmin",
     u"homeDirectory",
@@ -219,7 +219,8 @@ def main(argv):
     
     # Create a dictionary with user attributes.
     user_plist = dict()
-    user_plist[u"authentication_authority"] = [u";ShadowHash;"]
+    user_plist[u"authentication_authority"] = [u";ShadowHash;HASHLIST:<SALTED-SHA512-PBKDF2>"]
+    user_plist[u"ShadowHashData"] = [input_data[u"shadowHashData"]]
     user_plist[u"generateduid"] = [input_data[u"uuid"]]
     user_plist[u"gid"] = [u"20"]
     user_plist[u"home"] = [input_data[u"homeDirectory"]]
@@ -251,7 +252,7 @@ def main(argv):
         kcpassword = None
     is_admin = input_data.get(u"isAdmin", False)
     
-    # Create a package with the plist for our user and a shadow hash file.
+    # Create a package with the plist for our user.
     tmp_path = tempfile.mkdtemp()
     try:
         # Create a root for the package.
@@ -260,7 +261,6 @@ def main(argv):
         # Create package structure inside root.
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/dslocal/nodes"), 0755)
         os.makedirs(os.path.join(pkg_root_path, "private/var/db/dslocal/nodes/Default/users"), 0700)
-        os.makedirs(os.path.join(pkg_root_path, "private/var/db/shadow/hash"), 0700)
         if kcpassword:
             os.makedirs(os.path.join(pkg_root_path, "private/etc"), 0755)
         # Save user plist.
@@ -270,15 +270,6 @@ def main(argv):
                                        user_plist_name)
         plistlib.writePlist(user_plist, user_plist_path)
         os.chmod(user_plist_path, 0600)
-        # Save shadow hash.
-        shadow_hash_name = input_data[u"uuid"]
-        shadow_hash_path = os.path.join(pkg_root_path,
-                                        "private/var/db/shadow/hash",
-                                        shadow_hash_name)
-        f = open(shadow_hash_path, "w")
-        f.write(shadow_hash)
-        f.close()
-        os.chmod(shadow_hash_path, 0600)
         # Save kcpassword.
         if kcpassword:
             kcpassword_path = os.path.join(pkg_root_path, "private/etc/kcpassword")

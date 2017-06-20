@@ -29,6 +29,7 @@
     NSTextField *__unsafe_unretained _version;
     
     NSMutableString *_shadowHash;
+    NSData *_shadowHashData;
     NSData *_kcPassword;
     NSMutableDictionary *_docState;
 }
@@ -50,6 +51,7 @@
 @property (unsafe_unretained) IBOutlet NSTextField *version;
 
 @property (strong) NSMutableString *shadowHash;
+@property (strong) NSData *shadowHashData;
 @property (strong) NSData *kcPassword;
 @property (strong) NSMutableDictionary *docState;
 
@@ -57,6 +59,7 @@
 - (IBAction)didLeaveAccountName:(id)sender;
 - (IBAction)didLeavePassword:(id)sender;
 
+- (void)calculateShadowHashData:(NSString *)pwd;
 - (void)calculateShadowHash:(NSString *)pwd;
 - (void)calculateKCPassword:(NSString *)pwd;
 - (void)setTextField:(NSTextField *)field withKey:(NSString *)key;
