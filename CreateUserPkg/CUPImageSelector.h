@@ -8,13 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CUPImageSelector : NSImageView {
-    NSData *_imageData;
-    NSString *_imagePath;
-}
+@interface CUPImageSelector : NSImageView
 
-@property (strong) NSData *imageData;
-@property (strong) NSString *imagePath;
+@property(copy) NSData *imageData;
+@property(copy) NSString *imagePath;
 
 - (BOOL)saveJpegData:(NSData *)data;
 - (void)saveUserPicturesPath:(NSURL *)url;
