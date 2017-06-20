@@ -240,12 +240,11 @@ def main(argv):
     if u"imageData" in input_data:
         user_plist[u"jpegphoto"] = [input_data[u"imageData"]]
     
-    # Get name, version, package ID, shadow hash, and kcpassword.
+    # Get name, version, package ID, and kcpassword.
     utf8_username = input_data[u"accountName"].encode("utf-8")
     pkg_version = input_data[u"version"]
     pkg_name = "create_%s-%s" % (utf8_username, pkg_version)
     pkg_id = input_data[u"packageID"]
-    shadow_hash = input_data[u"shadowHash"]
     if u"kcPassword" in input_data:
         kcpassword = input_data[u"kcPassword"].data
     else:

@@ -28,7 +28,6 @@
     NSTextField *__unsafe_unretained _packageID;
     NSTextField *__unsafe_unretained _version;
     
-    NSMutableString *_shadowHash;
     NSData *_shadowHashData;
     NSData *_kcPassword;
     NSMutableDictionary *_docState;
@@ -50,7 +49,6 @@
 @property (unsafe_unretained) IBOutlet NSTextField *packageID;
 @property (unsafe_unretained) IBOutlet NSTextField *version;
 
-@property (strong) NSMutableString *shadowHash;
 @property (strong) NSData *shadowHashData;
 @property (strong) NSData *kcPassword;
 @property (strong) NSMutableDictionary *docState;
@@ -60,7 +58,6 @@
 - (IBAction)didLeavePassword:(id)sender;
 
 - (void)calculateShadowHashData:(NSString *)pwd;
-- (void)calculateShadowHash:(NSString *)pwd;
 - (void)calculateKCPassword:(NSString *)pwd;
 - (void)setTextField:(NSTextField *)field withKey:(NSString *)key;
 - (void)setDocStateKey:(NSString *)key fromDict:(NSDictionary *)dict;
@@ -68,9 +65,6 @@
 - (BOOL)validateDocumentAndUpdateState;
 - (NSDictionary *)newDictFromScript:(NSString *)path withArgs:(NSDictionary *)argDict error:(NSError **)outError;
 
-#define SALTED_SHA1_LEN 48
-#define SALTED_SHA1_OFFSET (64 + 40 + 64)
-#define SHADOW_HASH_LEN 1240
 
 #define PBKDF2_SALT_LEN 32
 #define PBKDF2_ENTROPY_LEN 128

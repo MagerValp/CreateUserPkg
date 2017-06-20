@@ -31,8 +31,6 @@
 
 @synthesize packageID = _packageID;
 @synthesize version = _version;
-
-@synthesize shadowHash = _shadowHash;
 @synthesize shadowHashData = _shadowHashData;
 @synthesize kcPassword = _kcPassword;
 @synthesize docState = _docState;
@@ -43,7 +41,7 @@
     self = [super init];
     if (self) {
         _docState = [[NSMutableDictionary alloc] init];
-        _shadowHash = [[NSMutableString alloc] initWithString:@""];
+        _shadowHashData = nil;
         _kcPassword = nil;
     }
     return self;
@@ -94,7 +92,7 @@
     if ([[self.password stringValue] length] != 0) {
         if ([[self.password stringValue] isEqualToString:[self.verifyPassword stringValue]]) {
             if ([[self.password stringValue] isEqualToString:CUP_PASSWORD_PLACEHOLDER] == NO) {
-                [self calculateShadowHash:[self.password stringValue]];
+                [self calculateShadowHashData:[self.password stringValue]];
                 [self calculateKCPassword:[self.password stringValue]];
                 [self.automaticLogin setEnabled:YES];
             }
@@ -137,37 +135,6 @@
     }
 }
 
-
-- (void)calculateShadowHash:(NSString *)pwd
-{
-    [self calculateShadowHashData:pwd];
-    CC_SHA1_CTX ctx;
-    unsigned char salted_sha1_hash[24];
-    union _salt {
-        unsigned char bytes[4];
-        u_int32_t value;
-    } *salt = (union _salt *)&salted_sha1_hash[0];
-    unsigned char *hash = &salted_sha1_hash[4];
-    
-    // Calculate salted sha1 hash.
-    CC_SHA1_Init(&ctx);
-    salt->value = arc4random();
-    CC_SHA1_Update(&ctx, salt->bytes, sizeof(salt->bytes));
-    CC_SHA1_Update(&ctx, [pwd UTF8String], (CC_LONG)[pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
-    CC_SHA1_Final(hash, &ctx);
-    
-    // Generate new shadow hash.
-    [self.shadowHash setString:@""];
-    [self.shadowHash appendFormat:@"%0168X", 0];
-    assert([self.shadowHash length] == SALTED_SHA1_OFFSET);
-    for (int i = 0; i < sizeof(salted_sha1_hash); i++) {
-        [self.shadowHash appendFormat:@"%02X", salted_sha1_hash[i]];
-    }
-    while ([self.shadowHash length] < SHADOW_HASH_LEN) {
-        [self.shadowHash appendFormat:@"%064X", 0];
-    }
-    assert([self.shadowHash length] == SHADOW_HASH_LEN);
-}
 
 #define KCKEY_LEN 11
 const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD, 0xEA, 0xA3, 0xB9, 0x1F};
@@ -230,7 +197,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     UPDATE_TEXT_FIELD(uuid);
     UPDATE_TEXT_FIELD(packageID);
     UPDATE_TEXT_FIELD(version);
-    if ((self.docState)[@"shadowHash"] != nil) {
+    if ((self.docState)[@"shadowHashData"] != nil) {
         [self.password setStringValue:CUP_PASSWORD_PLACEHOLDER];
         [self.verifyPassword setStringValue:CUP_PASSWORD_PLACEHOLDER];
     }
@@ -331,12 +298,11 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     SET_DOC_STATE(packageID);
     SET_DOC_STATE(version);
     if ([[self.password stringValue] isEqualToString:CUP_PASSWORD_PLACEHOLDER] == NO) {
-        if ([self.shadowHash length] == 0) {
+        if (self.shadowHashData == nil) {
             NSLog(@"shadowHash is empty, calculating new hash");
-            [self calculateShadowHash:[self.password stringValue]];
+            [self calculateShadowHashData:[self.password stringValue]];
         }
-        (self.docState)[@"shadowHash"] = [NSString stringWithString:self.shadowHash];
-        (self.docState)[@"shadowHashData"] = self.shadowHashData;
+        (self.docState)[@"shadowHashData"] = [NSData dataWithData:self.shadowHashData];
     }
     if ([self.automaticLogin state] == NSOnState) {
         if ([self.kcPassword length] == 0) {
@@ -415,8 +381,7 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [self setDocStateKey:@"packageID"       fromDict:document];
     [self setDocStateKey:@"version"         fromDict:document];
     if (document[@"shadowHashData"] != nil) {
-        // only set these if we read ShadowHashData from the package
-        [self setDocStateKey:@"shadowHash"      fromDict:document];
+        // only set this if we read ShadowHashData from the package
         [self setDocStateKey:@"shadowHashData"  fromDict:document];
     }
     [self setDocStateKey:@"imageData"       fromDict:document];

@@ -107,7 +107,6 @@ def main(argv):
             u"uuid":             user[u"generateduid"][0],
             u"packageID":        pkg_info.get("identifier"),
             u"version":          pkg_info.get("version"),
-            u"shadowHash":       u"",
         }
         if u"ShadowHashData" in user:
             output_data[u"shadowHashData"] = user[u"ShadowHashData"][0]
