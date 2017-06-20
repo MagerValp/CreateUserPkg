@@ -105,26 +105,26 @@
 
 - (void)calculateShadowHashData:(NSString *)pwd
 {
-    unsigned char salt[32];
-    int status = SecRandomCopyBytes(kSecRandomDefault, 32, salt);
+    unsigned char salt[PBKDF2_SALT_LEN];
+    int status = SecRandomCopyBytes(kSecRandomDefault, PBKDF2_SALT_LEN, salt);
     if (status == 0) {
-        unsigned char key[128];
+        unsigned char key[PBKDF2_ENTROPY_LEN];
         // calculate the number of iterations to use
         unsigned int rounds = CCCalibratePBKDF(kCCPBKDF2,
                                                [pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                               32, kCCPRFHmacAlgSHA512, 128, 100);
+                                               PBKDF2_SALT_LEN, kCCPRFHmacAlgSHA512, PBKDF2_ENTROPY_LEN, 100);
         // derive our SALTED-SHA512-PBKDF2 key
         CCKeyDerivationPBKDF(kCCPBKDF2,
                              [pwd UTF8String],
                              (CC_LONG)[pwd lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                             salt, 32,
-                             kCCPRFHmacAlgSHA512, rounds, key, 128);
+                             salt, PBKDF2_SALT_LEN,
+                             kCCPRFHmacAlgSHA512, rounds, key, PBKDF2_ENTROPY_LEN);
         // Make a dictionary containing the needed fields
         NSDictionary *dictionary = @{
             @"SALTED-SHA512-PBKDF2" : @{
-                    @"entropy" : [NSData dataWithBytes: key length: 128],
+                    @"entropy" : [NSData dataWithBytes: key length: PBKDF2_ENTROPY_LEN],
                     @"iterations" : [NSNumber numberWithUnsignedInt: rounds],
-                    @"salt" : [NSData dataWithBytes: salt length: 32]
+                    @"salt" : [NSData dataWithBytes: salt length: PBKDF2_SALT_LEN]
                     }
         };
         // convert to binary plist data
