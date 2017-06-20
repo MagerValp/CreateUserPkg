@@ -107,9 +107,10 @@ def main(argv):
             u"uuid":             user[u"generateduid"][0],
             u"packageID":        pkg_info.get("identifier"),
             u"version":          pkg_info.get("version"),
-            u"shadowHashData":   user[u"ShadowHashData"][0],
             u"shadowHash":       u"",
         }
+        if u"ShadowHashData" in user:
+            output_data[u"shadowHashData"] = user[u"ShadowHashData"][0]
         if u"picture" in user and len(user[u"picture"]):
             output_data[u"imagePath"] = user[u"picture"][0]
         if u"jpegphoto" in user and len(user[u"jpegphoto"]):

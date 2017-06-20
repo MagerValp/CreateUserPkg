@@ -414,8 +414,11 @@ const char kcPasswordKey[KCKEY_LEN] = {0x7D, 0x89, 0x52, 0x23, 0xD2, 0xBC, 0xDD,
     [self setDocStateKey:@"uuid"            fromDict:document];
     [self setDocStateKey:@"packageID"       fromDict:document];
     [self setDocStateKey:@"version"         fromDict:document];
-    [self setDocStateKey:@"shadowHash"      fromDict:document];
-    [self setDocStateKey:@"shadowHashData"  fromDict:document];
+    if (document[@"shadowHashData"] != nil) {
+        // only set these if we read ShadowHashData from the package
+        [self setDocStateKey:@"shadowHash"      fromDict:document];
+        [self setDocStateKey:@"shadowHashData"  fromDict:document];
+    }
     [self setDocStateKey:@"imageData"       fromDict:document];
     [self setDocStateKey:@"imagePath"       fromDict:document];
     [self setDocStateKey:@"kcPassword"      fromDict:document];
