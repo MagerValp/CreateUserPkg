@@ -8,8 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CUPUUIDFormatter : NSFormatter {
-    NSMutableCharacterSet *controlSet;
-}
-
+@interface CUPUUIDFormatter : NSFormatter
 @end

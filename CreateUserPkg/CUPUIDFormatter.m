@@ -12,22 +12,19 @@
 
 - (BOOL)isPartialStringValid:(NSString *)partialString
             newEditingString:(NSString **)newString
-            errorDescription:(NSString **)error
-{
-	NSRange inRange;
-	NSCharacterSet *allowedChars = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
-	inRange = [partialString rangeOfCharacterFromSet:allowedChars];
-	
-	if(inRange.location != NSNotFound)
-	{
-		*error = @"Only numbers are allowed.";
-		NSBeep();
-		return NO;
-	}
-	
-	*newString = partialString;
-	return YES;     
-}
+            errorDescription:(NSString **)error {
+  NSCharacterSet *allowedChars =
+      [NSCharacterSet characterSetWithCharactersInString:@"0123456789"].invertedSet;
+  NSRange inRange = [partialString rangeOfCharacterFromSet:allowedChars];
 
+  if (inRange.location != NSNotFound) {
+    *error = @"Only numbers are allowed.";
+    NSBeep();
+    return NO;
+  }
+
+  *newString = partialString;
+  return YES;
+}
 
 @end

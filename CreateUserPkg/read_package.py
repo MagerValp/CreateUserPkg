@@ -73,10 +73,10 @@ def main(argv):
         et = ElementTree.parse(pkginfo_path)
         pkg_info = et.getroot()
         # Read the shadow hash.
-        shadow_hash_path = os.path.join(payload_path, "private/var/db/shadow/hash", user[u"generateduid"][0])
-        f = open(shadow_hash_path)
-        shadow_hash = f.read()
-        f.close()
+        #shadow_hash_path = os.path.join(payload_path, "private/var/db/shadow/hash", user[u"generateduid"][0])
+        #f = open(shadow_hash_path)
+        #shadow_hash = f.read()
+        #f.close()
         # Read kcpassword.
         kcpassword_path = os.path.join(payload_path, "private/etc/kcpassword")
         try:
@@ -107,8 +107,9 @@ def main(argv):
             u"uuid":             user[u"generateduid"][0],
             u"packageID":        pkg_info.get("identifier"),
             u"version":          pkg_info.get("version"),
-            u"shadowHash":       shadow_hash,
         }
+        if u"ShadowHashData" in user:
+            output_data[u"shadowHashData"] = user[u"ShadowHashData"][0]
         if u"picture" in user and len(user[u"picture"]):
             output_data[u"imagePath"] = user[u"picture"][0]
         if u"jpegphoto" in user and len(user[u"jpegphoto"]):
