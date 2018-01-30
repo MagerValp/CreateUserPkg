@@ -1,3 +1,10 @@
+Alternatives
+============
+
+* [pycreateuserpkg](https://github.com/gregneagle/pycreateuserpkg) — CLI only but fully functional
+* [MacUserGenerator](https://github.com/ninxsoft/MacUserGenerator) – GUI but still in development
+* [Greg Neagle's fork](https://github.com/gregneagle/CreateUserPkg) or [Tom Burgin's fork](https://github.com/tburgin/CreateUserPkg) – if you're interested in continuing development of CreateUserPkg
+
 This project is no longer maintained
 ====================================
 
@@ -6,7 +13,7 @@ Please see the [blog post](https://magervalp.github.io/2016/12/07/createuserpkg-
 Download
 ========
 
-Download CreateUserPkg from the project homepage at [http://magervalp.github.com/CreateUserPkg/](http://magervalp.github.com/CreateUserPkg/)
+~Download CreateUserPkg from the project homepage at [http://magervalp.github.com/CreateUserPkg/](http://magervalp.github.com/CreateUserPkg/)~
 
 
 Overview
